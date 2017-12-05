@@ -16,4 +16,3 @@ console.log([color, nature, "의", word + "!!"].join(" "));
 var animal = ["원숭이", "고양이", "물고기", "도마뱀"];
 joined_animal = animal.join();
 console.log(joined_animal);
-
