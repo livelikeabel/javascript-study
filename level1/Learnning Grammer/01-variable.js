@@ -1,0 +1,5 @@
+const pi = 3.14 //????뭐징
+console.log(pi);
+let a = 5;// ????
+console.log(a);
+//둘다 한번 설정되면 안바뀌는 변수인가??? 자바의 final 같은 느낌?
