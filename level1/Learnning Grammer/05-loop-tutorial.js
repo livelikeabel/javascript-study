@@ -15,7 +15,7 @@ while (true) {
 	console.log("입력한 숫자 : " + userNumber);
 	document.write("입력한 숫자 : " + userNumber + "</br>");
 
-	if (randomNumber == userNumber) {
+	if (randomNumber == userNumber) { // === 는 값뿐 아니라, 타입까지 체크하느냐 이다.
 		alert("숫자를 맞추었습니다!");
 		document.write( count + "번 시도 하였습니다.");
 		break;
