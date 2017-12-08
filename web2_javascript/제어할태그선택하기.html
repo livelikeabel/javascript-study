@@ -7,12 +7,27 @@
 <body>
   <h1><a href="index.html">WEB</a></h1>
   <input type="button" value="night" onclick="
-    document.querySelector('body').style.backgroundColor = 'black';
-    document.querySelector('body').style.color = 'white';
-  ">
-  <input type="button" value="day" onclick="
-    document.querySelector('body').style.backgroundColor = 'white';
-    document.querySelector('body').style.color = 'black';
+    var target = document.querySelector('body');
+    if(this.value == 'night') {
+      target.style.backgroundColor = 'black';
+      target.style.color = 'white';
+      this.value = 'day';
+
+      var alist = document.querySelectorAll('a');
+      for(var i = 0; i < alist.length; i++) {
+        alist[i].style.color = 'powderblue';
+      }
+
+    } else if(this.value === 'day') {
+      target.style.backgroundColor = 'white';
+      target.style.color = 'black';
+      this.value = 'night';
+
+      var alist = document.querySelectorAll('a');
+      for(var i = 0; i < alist.length; i++) {
+        alist[i].style.color = 'green';
+      }
+    }
   ">
   <ol>
     <li><a href="1.html">HTML</a></li>
