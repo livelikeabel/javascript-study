@@ -3,39 +3,8 @@
 <head>
   <title>WEB1 - JavaScript</title>
   <meta charset="utf-8">
-  <script>
-    function linksSetColor(color) {
-      var alist = document.querySelectorAll('a');
-        for(var i = 0; i < alist.length; i++) {
-          alist[i].style.color = color;
-        }
-    }
-
-    function bodySetColor(color) {
-      document.querySelector('body').style.color = color;
-    }
-
-    function bodySetBackgroundColor(color) {
-      document.querySelector('body').style.backgroundColor = color;
-    }
-
-    function nightDayHandler(self) {
-      var target = document.querySelector('body');
-      if(self.value == 'night') {
-        bodySetBackgroundColor("black");
-        bodySetColor("white");
-        self.value = 'day';
-
-        linksSetColor('powderblue');
-      } else if(self.value === 'day') {
-        bodySetBackgroundColor("white");
-        bodySetColor("black");
-        self.value = 'night';
-
-        linksSetColor('green');
-      }
-    }
-  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="colors.js"></script>
 </head>
 <body>
   <h1><a href="index.html">WEB</a></h1>
@@ -43,9 +12,9 @@
     nightDayHandler(this);
   ">
   <ol>
-    <li><a href="1.html">HTML</a></li>
-    <li><a href="2.html">CSS</a></li>
-    <li><a href="3.html">JavaScript</a></li>
+    <li><a href="HTML.html">HTML</a></li>
+    <li><a href="CSS.html">CSS</a></li>
+    <li><a href="JavaScript.html">JavaScript</a></li>
   </ol>
   <h2>JavaScript</h2>
   <p>
