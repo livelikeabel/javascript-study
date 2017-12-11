@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<h1>안녕하세요</h1>
+<script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+<script>
+	$("h1").fadeOut(2000).text("내 친구들");
+	var friends = ["민석", "의용", "주찬", "성준"];
+	for (var i = 0; i < friends.length; i++) {
+		$("body").append("<p>나의 친구들은 " + friends[i] + "입니다. ㅎㅎ</p>");
+
+	}
+</script>
+</body>
+</html>
