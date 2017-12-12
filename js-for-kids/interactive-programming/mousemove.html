@@ -10,12 +10,18 @@
 	<script src="https://code.jquery.com/jquery-2.1.0.js"></script>
 
 	<script>
-		$("html").mousemove(function(event) {
-			$("#heading").offset({
-				left: event.pageX,
-				top: event.pageY
+
+		var clickHandler = function(event) {
+			console.log("Click! " + event.pageX + " " + event.pageY);
+			$("html").mousemove(function(event) {
+				$("#heading").offset({
+					left: event.pageX,
+					top: event.pageY
+				});
 			});
-		}) ;
+		};
+
+		$("html").click(clickHandler);
 	</script>
 </body>
 </html>
