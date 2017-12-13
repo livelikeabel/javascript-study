@@ -64,5 +64,10 @@ $("#map").click(function(event){
 	var distanceHint = getDistanceHint(distance);
 
 	$("#distance").text(distanceHint);
+
+	//보물을 찾았는지 확인하기
+	if(distance < 8) {
+		alert(clicks + "번 클릭해서 보물을 찾았습니다!");
+	}
 });
 
