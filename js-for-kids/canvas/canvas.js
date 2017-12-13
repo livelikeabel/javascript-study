@@ -1,5 +1,9 @@
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
-for (var i = 0; i < 20; i++) {
-	ctx.fillRect(i * 10, i * 10, 10, 10);
-}
+ctx.fillRect(65, 5, 30, 30);
+ctx.fillRect(30, 50, 100, 5);
+ctx.fillRect(78, 30, 5, 20);
+ctx.fillRect(56, 50, 50, 50);
+ctx.fillRect(56, 100, 5, 30);
+ctx.fillRect(101, 100, 5, 30);
+//ctx.fillRect(0, 0, 200, 200);
