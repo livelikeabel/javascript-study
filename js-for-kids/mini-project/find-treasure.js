@@ -41,5 +41,28 @@ $("#map").click(function(event){
 	};
 	console.log(event.offsetX, event.offsetY);
 
+	//플레이어에게 얼마나 가까운지 말해주기
+	var getDistanceHint = function(distance) {
+		if(distance < 10) {
+			return "바로 앞이에요!";
+		} else if(distance < 20) {
+			return "정말 가까워요!";
+		} else if(distance < 40) {
+			return "가까워요";
+		} else if(distance < 80) {
+			return "멀지는 않아요";
+		} else if(distance < 160) {
+			return "멀어요";
+		} else if(distance < 320) {
+			return "꽤 멀어요";
+		} else {
+			return "너~~~~무 멀어요!";
+		}
+	};
+
+	var distance = getDistance(event, target);
+	var distanceHint = getDistanceHint(distance);
+
+	$("#distance").text(distanceHint);
 });
 
