@@ -17,7 +17,7 @@ var getRandomNumber = function(size) {
 	return Math.floor(Math.random() * size);
 };
 
-//클릭한 위치에서 보물까지의 거리 계산하기
+//클릭한 위치에서 재연이형 까지의 거리 계산하기
 var getDistance = function(event, target) {
 var diffX = event.offsetX - target.x;
 var diffY = event.offsetY - target.y;
@@ -26,27 +26,27 @@ return Math.sqrt((diffX * diffX) + (diffY * diffY));
 
 //플레이어에게 얼마나 가까운지 말해주기
 var getDistanceHint = function(distance) {
-	if(distance < 10) {
+	if(distance < 50) {
 		return "바로 앞이에요!";
-	} else if(distance < 20) {
-		return "정말 가까워요!";
-	} else if(distance < 40) {
-		return "가까워요";
 	} else if(distance < 80) {
+		return "정말 가까워요!";
+	} else if(distance < 120) {
+		return "가까워요";
+	} else if(distance < 170) {
 		return "멀지는 않아요";
-	} else if(distance < 160) {
+	} else if(distance < 350) {
 		return "멀어요";
-	} else if(distance < 320) {
+	} else if(distance < 600) {
 		return "꽤 멀어요";
 	} else {
 		return "택도 없어요!";
 	}
 };
 
-//보물 좌표 설정하기
-var width = 400;
-var height = 400;
-var clicks = 0;
+//재연이형 좌표 설정하기
+var width = 800;
+var height = 800;
+var remainClicks = 30;
 
 // 위치를 무작위로 고릅니다.
 var target = {
@@ -57,7 +57,8 @@ console.log(target);
 
 //img 엘리먼트에 클릭 핸들러를 추가합니다.
 $("#map").click(function(event){
-	clicks++;
+	remainClicks--;
+	var clicks = 30 - remainClicks;
 
 	// 클릭 event와 target 사이의 거리를 구합니다.
 	var distance = getDistance(event, target);
@@ -65,13 +66,29 @@ $("#map").click(function(event){
 	var distanceHint = getDistanceHint(distance);
 
 	// #distance 엘리먼트에 힌트를 표시합니다.
-	$("#distance").text(distanceHint);
+	$("#distance").text("힌트 : " + distanceHint);
 
-	//아주 가깝게 클릭했다면 보물을 찾았다고 말합니다.
-	if(distance < 8) {
-		alert(clicks + "번 클릭해서 보물을 찾았습니다!");
+	$("#remainNumber").text("남은 회수 : " + remainClicks);
+	//아주 가깝게 클릭했다면 재연이형을 찾았다고 말합니다.
+	if(distance < 20) {
+		$("body").append('<img id=jimmy" width=400 height=400 src="https://scontent-icn1-1.xx.fbcdn.net/v/t1.0-9/10348186_646359805451449_1834013078281579859_n.jpg?oh=870664ad949a8ffd10d293f3e73bc23d&oe=5ABDE017">');
+		$("#map").append('<img width=50 height=50 src="https://scontent-icn1-1.xx.fbcdn.net/v/t1.0-9/10348186_646359805451449_1834013078281579859_n.jpg?oh=870664ad949a8ffd10d293f3e73bc23d&oe=5ABDE017">');
+		//alert(remainClicks + "번 클릭해서 재연이형을 찾았습니다!");
+		$("#remainNumber").text(clicks + "번 클릭해서 재연이형을 찾았습니다!");
+	}
+	//30번 클릭하면 게임오버
+	if(remainClicks == 0) {
+		alert("GAME OVER");
 	}
 	console.log(distance);
 	console.log(event.offsetX, event.offsetY);
 });
+
+// //돋보기
+// $("#map").mousemove(function(event) {
+// 	$("#finder").offset({
+// 		left: event.pageX,
+// 		top: event.pageY
+// 	});
+// });
 
