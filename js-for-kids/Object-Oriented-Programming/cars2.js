@@ -1,6 +1,7 @@
 var Car = function(x, y) {
 	this.x = x;
 	this.y = y;
+	this.draw();
 };
 
 Car.prototype.draw = function() {
@@ -26,13 +27,40 @@ Car.prototype.moveRight = function() {
 	});
 };
 
-var tesla = new Car(20, 20);
-var nissan = new Car(100, 200);
+Car.prototype.moveLeft = function() {
+	this.x -= 5;
 
-tesla.draw();
-nissan.draw();
+	this.carElement.css({
+		left: this.x,
+		top: this.y
+	});
+};
 
-tesla.moveRight();
-tesla.moveRight();
+Car.prototype.moveUp = function() {
+	this.y -= 5;
 
-setInterval(nissan.moveRight(), 10);
+	this.carElement.css({
+		left: this.x,
+		top: this.y
+	});
+};
+
+Car.prototype.moveDown = function() {
+	this.y += 5;
+
+	this.carElement.css({
+		left: this.x,
+		top: this.y
+	});
+};
+
+// var tesla = new Car(20, 20);
+// var nissan = new Car(100, 200);
+
+// tesla.draw();
+// nissan.draw();
+
+// tesla.moveRight();
+// tesla.moveRight();
+
+// setInterval(nissan.moveRight(), 10);
