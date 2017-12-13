@@ -17,57 +17,61 @@ var getRandomNumber = function(size) {
 	return Math.floor(Math.random() * size);
 };
 
+//클릭한 위치에서 보물까지의 거리 계산하기
+var getDistance = function(event, target) {
+var diffX = event.offsetX - target.x;
+var diffY = event.offsetY - target.y;
+return Math.sqrt((diffX * diffX) + (diffY * diffY));
+};
+
+//플레이어에게 얼마나 가까운지 말해주기
+var getDistanceHint = function(distance) {
+	if(distance < 10) {
+		return "바로 앞이에요!";
+	} else if(distance < 20) {
+		return "정말 가까워요!";
+	} else if(distance < 40) {
+		return "가까워요";
+	} else if(distance < 80) {
+		return "멀지는 않아요";
+	} else if(distance < 160) {
+		return "멀어요";
+	} else if(distance < 320) {
+		return "꽤 멀어요";
+	} else {
+		return "택도 없어요!";
+	}
+};
+
 //보물 좌표 설정하기
 var width = 400;
 var height = 400;
+var clicks = 0;
 
+// 위치를 무작위로 고릅니다.
 var target = {
 	x : getRandomNumber(width),
 	y : getRandomNumber(height)
 };
-
 console.log(target);
 
-//클릭 핸들러
-var clicks = 0;
+//img 엘리먼트에 클릭 핸들러를 추가합니다.
 $("#map").click(function(event){
-	clicks++
+	clicks++;
 
-	//클릭한 위치에서 보물까지의 거리 계산하기
-	var getDistance = function(event, target) {
-		var diffX = event.offsetX - target.x;
-		var diffY = event.offsetY - target.y;
-		return Math.sqrt((diffX * diffX) + (diffY * diffY));
-	};
-	console.log(event.offsetX, event.offsetY);
-
-	//플레이어에게 얼마나 가까운지 말해주기
-	var getDistanceHint = function(distance) {
-		if(distance < 10) {
-			return "바로 앞이에요!";
-		} else if(distance < 20) {
-			return "정말 가까워요!";
-		} else if(distance < 40) {
-			return "가까워요";
-		} else if(distance < 80) {
-			return "멀지는 않아요";
-		} else if(distance < 160) {
-			return "멀어요";
-		} else if(distance < 320) {
-			return "꽤 멀어요";
-		} else {
-			return "너~~~~무 멀어요!";
-		}
-	};
-
+	// 클릭 event와 target 사이의 거리를 구합니다.
 	var distance = getDistance(event, target);
+	// 거리를 힌트 문자열로 바꿉니다.
 	var distanceHint = getDistanceHint(distance);
 
+	// #distance 엘리먼트에 힌트를 표시합니다.
 	$("#distance").text(distanceHint);
 
-	//보물을 찾았는지 확인하기
+	//아주 가깝게 클릭했다면 보물을 찾았다고 말합니다.
 	if(distance < 8) {
 		alert(clicks + "번 클릭해서 보물을 찾았습니다!");
 	}
+	console.log(distance);
+	console.log(event.offsetX, event.offsetY);
 });
 
