@@ -1,5 +1,5 @@
 var arraySum = function (arrL, arr){
-	var ret;
+	var ret = 0;
 	for(var i = 0; i < arrL; i++) {
 		ret += arr[i];
 	}
