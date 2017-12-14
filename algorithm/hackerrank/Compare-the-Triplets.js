@@ -6,29 +6,30 @@ function splitInput(input, indexNum) {
 	return numbers;
 }
 
-// function numberType(array) {
-	
-// 	return array;
-// }
+function numberType(array) {
+	var ret = [];
+	ret.length === array.length;
+	for(var i = 0; i < array.length; i++) {
+		ret[i] = Number(array[i]);
+	}
+	return ret;
+}
 
 function comparing(aNumbers, bNumbers) {
 	var aScore = 0;
 	var bScore = 0;
 
 	for(var i = 0; i < aNumbers.length; i++) {
-		if(Number(aNumbers[i]) > Number(bNumbers[i])) {
+		if(aNumbers[i] > bNumbers[i]) {
 			aScore += 1;
 		}
-		if(Number(aNumbers[i]) < Number(bNumbers[i])) {
+		if(aNumbers[i] < bNumbers[i]) {
 			bScore += 1;
 		}
 	}
 	console.log(aScore, bScore);
 }
 
-
-var aNumbers = splitInput(input, 0);
-var bNumbers = splitInput(input, 1);
-console.log(aNumbers);
-console.log(bNumbers);
+var aNumbers = numberType(splitInput(input, 0));
+var bNumbers = numberType(splitInput(input, 1));
 comparing(aNumbers, bNumbers);
