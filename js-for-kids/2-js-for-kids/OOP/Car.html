@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>car</title>
+</head>
+<body>
+	<script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+	<script>
+		function Car(x, y) {
+			this.x = x;
+			this.y = y;
+			this.draw();
+			//setInterval(this.moveRight.bind(this), 30);
+		}
+
+		Car.prototype.draw = function() {
+			var carHtml = '<img src="http://nostarch.com/images/car.png">';
+
+			this.carElement = $(carHtml);
+
+			this.carElement.css({
+				position: "absolute",
+				left: this.x,
+				top: this.y
+			});
+
+			$("body").append(this.carElement);
+		};
+
+		Car.prototype.moveRight = function() {
+			this.x += Math.floor(Math.random() * 20);
+			//this.x += 2;
+
+			this.carElement.css({
+				left: this.x,
+				top: this.y
+			});
+		};
+
+		Car.prototype.moveDown = function() {
+			this.y += Math.floor(Math.random() * 20);
+			//this.x += 2;
+
+			this.carElement.css({
+				left: this.x,
+				top: this.y
+			});
+		};
+
+		var racingCar1 = new Car(100,100);
+		var racingCar2 = new Car(100,200);
+		setInterval(racingCar1.moveRight.bind(racingCar1), 20);
+		setInterval(racingCar2.moveRight.bind(racingCar2), 20);
+		
+		//setInterval(racingCar1.moveDown.bind(racingCar1), 30);
+		
+	</script>
+</body>
+</html>
