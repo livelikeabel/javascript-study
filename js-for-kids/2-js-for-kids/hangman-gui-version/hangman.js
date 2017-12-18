@@ -41,9 +41,12 @@ ctx.lineTo(80, 260);
 ctx.lineTo(20, 350);
 ctx.stroke();
 
-
-
-
+function getInputText() {
+	//var answer = document.getElementById("answer").submit();
+	var answer = document.getElementById("answer").value;
+	console.log(answer);//string
+	return answer;
+}
 
 
 
