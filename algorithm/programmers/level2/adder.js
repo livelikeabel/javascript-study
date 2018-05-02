@@ -10,11 +10,10 @@ function adder(a, b){
     var result = 0
     //함수를 완성하세요
     if(a===b) return a
-    let x = (a-b > 0 ? a-b : -a+b) //절대값
-    console.log(x)
+    let x = (a-b > 0 ? a-b : -a+b) - 1 //두수 사이의 정수 개수
     
     //return result;
-    return b-a;
+    return x;
 }
 
 
