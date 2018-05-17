@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import { Home, About } from "pages";
+import Menu from "components/Menu";
 
 class App extends Component {
   render() {
     return (
       <div>
+        <Menu />
         <header>이건 헤더야</header>
         <Route exact path="/" component={Home} />
         <Switch>
