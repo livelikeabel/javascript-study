@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+const crypto = require('crypto')
+const config = require('../config')
 
 const User = new Schema({
     username: String,
@@ -9,9 +11,13 @@ const User = new Schema({
 
 // create new User document
 User.statics.create = function(username, password) {
+    const encrypted = crypto.createHmac('shal', config.secret)
+                      .update(password)
+                      .digest('base64')
+
     const user = new this({
         username,
-        password
+        password: encrypted
     })
 
     // return the Promise
@@ -28,7 +34,11 @@ User.statics.findOneByUsername = function(username) {
 
 // verify the password of the User documment
 User.methods.verify = function(password) {
-    return this.password === password
+    const encrypted = crypto.createHmac('shal', config.secret)
+                      .update(password)
+                      .digest('base64')
+
+    return this.password === encrypted
 }
 
 User.methods.assignAdmin = function() {
