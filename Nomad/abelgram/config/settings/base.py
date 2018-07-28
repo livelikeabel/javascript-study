@@ -38,9 +38,25 @@ USE_TZ = True
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         env.db('DATABASE_URL', default='postgres:///abelgram'), 
+#         'PORT': '5433',
+#     },        
+
+# }
+
 DATABASES = {
-    'default': env.db('DATABASE_URL', default='postgres:///abelgram'),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'PostgreSQL 10',
+        'USER': 'esung ko',
+        'PASSWORD': 'dmltjd11',
+        'HOST': '127.0.0.1',
+        'PORT': '5433',
+    }
 }
+
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 # URLS
