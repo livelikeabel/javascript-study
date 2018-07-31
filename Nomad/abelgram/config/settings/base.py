@@ -38,25 +38,9 @@ USE_TZ = True
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         env.db('DATABASE_URL', default='postgres:///abelgram'), 
-#         'PORT': '5433',
-#     },        
-
-# }
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'PostgreSQL 10',
-        'USER': 'esung ko',
-        'PASSWORD': 'dmltjd11',
-        'HOST': '127.0.0.1',
-        'PORT': '5433',
-    }
+    'default': env.db('DATABASE_URL', default='postgres:///abelgram'),  
 }
-
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 # URLS
@@ -79,7 +63,6 @@ DJANGO_APPS = [
     'django.contrib.admin',
 ]
 THIRD_PARTY_APPS = [
-    'crispy_forms',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -88,6 +71,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     'abelgram.users.apps.UsersAppConfig',
     # Your stuff: custom apps go here
+    'abelgram.images.apps.ImagesConfig',
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
