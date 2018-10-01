@@ -14,3 +14,8 @@ h1 {
   background-color: #c3fae8;
   color: #63e6be;
 }
+#email {
+  position:fixed;
+  bottom: 10px;
+  right: 15px;
+}
