@@ -37,6 +37,11 @@ body {
   margin-bottom: 80px;
 }
 
+img {
+  float: right;
+  margin: 0 0 1em 1em;
+}
+
 h1 {
   margin: 0;
 }
