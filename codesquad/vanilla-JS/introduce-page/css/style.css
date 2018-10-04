@@ -10,12 +10,25 @@ h1 {
   position: relative;
   top: 10px;
   left: 100px;
-  width: 100px;
+  width: 150px;
   background-color: #c3fae8;
   color: #63e6be;
 }
 #email {
-  position:fixed;
+  position: fixed;
   bottom: 10px;
   right: 15px;
+}
+#hobby {
+  position: relative;
+  width: 600px;
+  height: 400px;
+  background: #ffe3e3;
+  color: #ff8787;
+}
+#basketBall {
+  position: absolute;
+  top: 20px;
+  background: #f08c00;
+  color: #fff3bf;
 }
