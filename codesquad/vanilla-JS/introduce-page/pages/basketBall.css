@@ -1,0 +1,42 @@
+.container {
+  position: relative;
+  background: #f08c00;
+  top: 10px;
+  left: 10px;
+  padding-top: 10px;
+}
+
+nav {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 200px;
+  background: #495057;
+}
+
+section {
+  /* position: absolute; */
+  /* left:210px; */
+  /* top:10px; */
+  margin-left: 210px;
+  background: #ffe066;
+}
+
+footer {
+  position: fixed;
+  bottom: 10px;
+  left: 18px;
+  height: 70px;
+  width: 100%;
+  background: #d9480f;
+}
+
+body {
+  background: #fff4e6;
+  height: 100vh;
+  margin-bottom: 80px;
+}
+
+h1 {
+  margin: 0;
+}
