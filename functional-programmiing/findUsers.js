@@ -9,26 +9,28 @@ var users = [
   { id: 7, name: 'HI', age: 24 }
 ]
 
-var temp_users = []
-for (var i = 0; i < users.length; i++) {
-  if (users[i].age < 30) temp_users.push(users[i])
+function filter(list, predicate) {
+  var new_list = [];
+  for (var i = 0, len = list.length; i < len; i++) {
+    if(predicate(list[i])) new_list.push(list[i])
+  }
+  return new_list
 }
-console.log(temp_users.length)
+
+const users_under_30 = filter(users, user => user.age < 30)
+console.log(users_under_30.length)
 
 var ages = [];
-for (var i = 0, len = temp_users.length; i < len; i++) {
-  ages.push(temp_users[i].age)
+for (var i = 0, len = users_under_30.length; i < len; i++) {
+  ages.push(users_under_30[i].age)
 }
 console.log(ages);
 
-var temp_users = [];
-for (var i = 0, len = users.length; i < len; i ++) {
-  if (users[i].age >= 30) temp_users.push(users[i])
-}
-console.log(temp_users.length)
+const users_over_30 = filter(users, user => user.age >= 30 )
+console.log(users_over_30.length)
 
 var names = [];
-for (var i = 0, len = temp_users.length; i < len; i++) {
-  names.push(temp_users[i].name)
+for (var i = 0, len = users_over_30.length; i < len; i++) {
+  names.push(users_over_30[i].name)
 }
 console.log(names)
