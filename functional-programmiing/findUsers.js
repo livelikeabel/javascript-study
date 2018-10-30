@@ -10,9 +10,17 @@ var users = [
 ]
 
 function filter(list, predicate) {
-  var new_list = [];
+  var new_list = []
   for (var i = 0, len = list.length; i < len; i++) {
-    if(predicate(list[i])) new_list.push(list[i])
+    if (predicate(list[i])) new_list.push(list[i])
+  }
+  return new_list
+}
+
+function map(list, iteratee) {
+  var new_list = []
+  for (var i = 0, len = list.length; i < len; i++) {
+    new_list.push(iteratee(list[i]))
   }
   return new_list
 }
@@ -20,17 +28,11 @@ function filter(list, predicate) {
 const users_under_30 = filter(users, user => user.age < 30)
 console.log(users_under_30.length)
 
-var ages = [];
-for (var i = 0, len = users_under_30.length; i < len; i++) {
-  ages.push(users_under_30[i].age)
-}
-console.log(ages);
+const ages = map(users_under_30, user => user.age)
+console.log(ages)
 
-const users_over_30 = filter(users, user => user.age >= 30 )
+const users_over_30 = filter(users, user => user.age >= 30)
 console.log(users_over_30.length)
 
-var names = [];
-for (var i = 0, len = users_over_30.length; i < len; i++) {
-  names.push(users_over_30[i].name)
-}
+const names = map(users_over_30, user => user.name)
 console.log(names)
