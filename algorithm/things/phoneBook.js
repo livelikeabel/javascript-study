@@ -100,11 +100,11 @@ const phoneBook = [
 // 2. 배열의 요소인 객체가 가지고 있는 type이 sk 이면 name 값을 array에 넣는다.
 // 3. 배열의 요소인 객체가 가지고 있는 childnode 배열의 length가 있다면, 재귀
 
-const mobileType = 'sk'
+const MOBILE_TYPE = 'sk'
 
 const getMobileServiceMember = (phoneInfoList, mobileServiceMembers = []) => {
   phoneInfoList.forEach(phoneInfo => {
-    if (phoneInfo.type === mobileType) mobileServiceMembers.push(phoneInfo.name)
+    if (phoneInfo.type === MOBILE_TYPE) mobileServiceMembers.push(phoneInfo.name)
     if (phoneInfo.childnode.length) {
       getMobileServiceMember(phoneInfo.childnode, mobileServiceMembers)
     }
@@ -114,4 +114,3 @@ const getMobileServiceMember = (phoneInfoList, mobileServiceMembers = []) => {
 }
 
 console.log(getMobileServiceMember(phoneBook))
-
