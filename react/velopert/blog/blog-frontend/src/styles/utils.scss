@@ -1,6 +1,7 @@
 @import 'lib/all';
+// @import 'src/styles/lib/all';
 
-$breakpoint: (
+$breakpoints: (
   small: 320px,
   medium: 768px,
   large: 1024px,
