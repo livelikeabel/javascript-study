@@ -1,0 +1,14 @@
+@import 'src/styles/utils';
+.pagination {
+  margin-top: 2rem;
+
+  display: flex;
+  justify-content: center;
+
+  .number {
+    font-size: 0.85rem;
+    text-align: center;
+    color: $oc-gray-6;
+    flex: 1; // 남은 공간을 다 차지
+  }
+}
