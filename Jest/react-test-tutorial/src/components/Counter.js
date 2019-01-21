@@ -13,7 +13,7 @@ class Counter extends Component {
     render() {
         return (
             <div>
-                <h1>카운터</h1>
+                <h1>운터</h1>
                 <h2>{this.state.value}</h2>
                 <button onClick={this.onIncrease}>+</button>
                 <button onClick={this.onDecrease}>-</button>
