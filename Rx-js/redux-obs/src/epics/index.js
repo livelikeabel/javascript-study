@@ -5,29 +5,26 @@ import 'rxjs/add/operator/ignoreElements';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/mergeMap';
+import "rxjs/add/operator/debounceTime";
 import "rxjs/add/observable/dom/ajax";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/forkJoin';
-import {FETCH_STORIES, fetchStoriesFulfilledAction} from '../actions';
+import {SEARCHED_BEERS, receiveBeers} from '../actions';
 
-const topStories = `https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty`;
-const url = id => `https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`;
+const beers = `https://api.punkapi.com/v2/beers`;
+const search = term => `${beers}?beer_name=${encodeURIComponent(term)}`;
+const ajax = term => Observable.ajax.getJSON(search(term));
 
-function fetchStoriesEpic(action$) {
-  return action$.ofType(FETCH_STORIES)
+function searchBeersEpic(action$) {
+  return action$.ofType(SEARCHED_BEERS)
+    .debounceTime(500)
     .switchMap(({payload}) => {
-      return Observable.ajax.getJSON(topStories)
-        .map(ids => ids.slice(0,5))
-        .map(ids => ids.map(url))
-        // convert urls => ajax
-        .map(urls => urls.map(url => Observable.ajax.getJSON(url)))
-        // execute 5 ajax request
-        .mergeMap(reqs => Observable.forkJoin(reqs))
-        // results => store
-        .map(stories => fetchStoriesFulfilledAction(stories))
+      console.log(payload)
+      return ajax(payload)
+        .map(receiveBeers)
     })
 }
 
-export const rootEpic = combineEpics(fetchStoriesEpic);
+export const rootEpic = combineEpics(searchBeersEpic);
