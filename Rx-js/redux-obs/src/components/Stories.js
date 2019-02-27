@@ -1,37 +1,41 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {clear, loadStories} from '../actions/index';
+import {fetchStoriesAction} from '../actions/index';
 
 export function Stories(props) {
-  return (<div>
-    <button type="button" onClick={props.loadStories}>Load Top 3 Stories</button>
-    <button type="button" onClick={props.clear}>Clear</button>
-    <StoryList {...props} />
-  </div>)
-}
-
-function StoryList(props) {
-  if (props.items.length === 0) return null;
+  if (props.loading) {
+    return (
+      <p>Please wait...</p>
+    )
+  }
   return (
     <div>
-      {props.items.map(item => <Story {...item} key={item.id} />)}
+      <button type="button" onClick={props.loadStories}>Load top 5 stories</button>
+      <StoryList stories={props.stories} />
     </div>
   )
 }
 
-function Story(props) {
-  return <p>{props.title}</p>
+function StoryList(props) {
+  return (
+    <ul>
+      {props.stories.map(story => 
+        <li key={story.id}>
+          <a href={story.url}>{story.title}</a>
+        </li>
+      )}
+    </ul>
+  );
 }
 
 function mapState(state) {
-  return state
+  return state;
 }
 
 function mapDispatch(dispatch) {
   return {
-    loadStories: () => dispatch(loadStories()),
-    clear: () => dispatch(clear())
+    loadStories: () => dispatch(fetchStoriesAction())
   };
 }
 
-export default connect(mapState, mapDispatch)(Stories)
+export default connect(mapState, mapDispatch)(Stories);
