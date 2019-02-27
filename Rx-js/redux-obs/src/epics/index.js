@@ -34,12 +34,6 @@ function searchBeersEpic(action$) {
     .switchMap(({payload}) => {
       // loading state in UI
       const loading = Observable.of(searchBeersLoading(true));
-
-      // const blockers = Observable.merge(
-      //   action$.ofType(CANCEL_SEARCH),
-      //   action$.ofType(NAVIGATE),
-      // )
-      // external API call
       const request = ajax(payload)
         .takeUntil(action$.ofType(CANCEL_SEARCH))
         .map(receiveBeers)
