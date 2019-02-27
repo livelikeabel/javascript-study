@@ -1,4 +1,4 @@
-import {RECEIVED_BEERS, SEARCHED_BEERS, SEARCHED_BEERS_ERROR} from "../actions/index";
+import {RECEIVED_BEERS, SEARCHED_BEERS, SEARCHED_BEERS_ERROR, SEARCHED_BEERS_LOADING} from "../actions/index";
 
 const initialState = {
   messages: [],
@@ -7,12 +7,16 @@ const initialState = {
 };
 
 export function beersReducer(state = initialState, action) {
-  switch (action.type) {
+  switch(action.type) {
+    case SEARCHED_BEERS_LOADING:
+      return {
+        ...state,
+        loading: action.payload
+      };
     case SEARCHED_BEERS:
       return {
         ...state,
-        loading: true,
-        messages: []
+        messages: [],
       };
     case SEARCHED_BEERS_ERROR:
       return {
@@ -24,7 +28,7 @@ export function beersReducer(state = initialState, action) {
       return {
         ...state,
         beers: action.payload,
-        loading: false
+        loading: false,
       };
     default: return state;
   }
