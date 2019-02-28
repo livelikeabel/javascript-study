@@ -10,9 +10,9 @@
 //   }
 // })
 
-// import {Observable} from 'rxjs';
-import {ActionsObservable} from 'redux-observable';
-import {fetchUserEpic} from './fetch-user-epic';
+const {Observable} = require('rxjs');
+const {ActionsObservable} = require('redux-observable');
+const {fetchUserEpic} = require('./fetch-user-epic');
 
 it('should return correct actions', function () {
   const action$ = ActionsObservable.of({

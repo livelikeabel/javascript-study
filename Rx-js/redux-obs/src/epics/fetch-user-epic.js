@@ -6,5 +6,5 @@ export function fetchUserEpic(action$) {
         name: 'Shane',
         user: action.payload
       }
-    }));
+    }))
 }

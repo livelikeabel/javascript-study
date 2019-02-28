@@ -26,7 +26,7 @@ const ajax = term =>
     ? Observable.throw(new Error("Ajax failed!"))
     : Observable.ajax.getJSON(search(term)).delay(5000)
 
-function searchBeersEpic(action$) {
+function searchBeersEpic(action$, store, deps) {
   return action$
     .ofType(SEARCHED_BEERS)
     .debounceTime(500)
@@ -34,7 +34,7 @@ function searchBeersEpic(action$) {
     .switchMap(({payload}) => {
       // loading state in UI
       const loading = Observable.of(searchBeersLoading(true));
-      const request = ajax(payload)
+      const request = deps.ajax.getJSON(search(payload))
         .takeUntil(action$.ofType(CANCEL_SEARCH))
         .map(receiveBeers)
         .catch(err => {
