@@ -12,8 +12,10 @@ const observableCreated$ = Observable.create(function subscribe(observer) {
   };
 });
 
-observableCreated$.subscribe(
+const subscription = observableCreated$.subscribe(
   function next(item) { console.log(item)},
   function error(e) {},
   function complete() { console.log('complete')}
 )
+
+setTimeout(() => subscription.unsubscribe(), 4000)
