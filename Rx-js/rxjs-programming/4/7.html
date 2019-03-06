@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <h1 id="displayArea">
+    m/s: 0 
+  </h1>
+  <button id="stop_btn" type="button">Stop</button>
+  <script src="https://unpkg.com/rxjs/bundles/rxjs.umd.min.js"></script>
+  <script>
+    const {interval, fromEvent} = rxjs;
+    const {take, takeUntil} = rxjs.operators;
+    interval(1).pipe(
+      take(10000),
+      takeUntil(fromEvent(document.querySelector('#stop_btn'), 'click')
+    )).subscribe(
+      x => document.querySelector('#displayArea').innerHTML = `m/s: ${x+1}`
+    );
+  </script>
+</body>
+</html>
