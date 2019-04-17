@@ -19,13 +19,22 @@ const INITIAL_STATE = {
 const bingo = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case SET_GAME_STATUS:
-            const player1Stage = sortStage(ROW, COL, state.player1.stage)
-            const player2Stage = sortStage(ROW, COL, state.player2.stage)
-            return {
-                ...state,
-                gameStatus: action.gameStatus,
-                player1: { stage: player1Stage },
-                player2: { stage: player2Stage }
+            if (action.gameStatus) {
+                const player1Stage = sortStage(ROW, COL, state.player1.stage)
+                const player2Stage = sortStage(ROW, COL, state.player2.stage)
+                return {
+                    ...state,
+                    gameStatus: action.gameStatus,
+                    player1: { stage: player1Stage },
+                    player2: { stage: player2Stage }
+                }
+            }
+            if (!action.gameStatus) {
+                return {
+                    gameStatus: action.gameStatus,
+                    player1: { stage: initStage(ROW, COL, { number: null, checked: false }) },
+                    player2: { stage: initStage(ROW, COL, { number: null, checked: false }) }
+                }
             }
         default:
             return state
