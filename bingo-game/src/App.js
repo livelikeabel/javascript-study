@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 import logo from './logo.svg';
+import {test} from './reducers/bingo';
 import './App.css';
 
 class App extends Component {
@@ -7,8 +9,12 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
+          <img onClick={() => {
+            this.props.test()
+            }} src={logo} className="App-logo" alt="logo" />
+          <p onClick={() => {
+            this.props.test()
+            }}>
             Edit <code>src/App.js</code> and save to reload.
           </p>
           <a
@@ -25,4 +31,7 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = () => ({});
+const mapDispatchToProps = {test}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
