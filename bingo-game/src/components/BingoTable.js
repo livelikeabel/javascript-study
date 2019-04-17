@@ -26,6 +26,16 @@ class BingoTable extends Component {
             const checkeds = row.filter(block => block.checked === true);
             if (checkeds.length === 5) bingoCount++
         })
+        // 열검사
+        stage.forEach((row, i) => {
+            let colCount = 0;
+            row.forEach((_, j) => {
+                if (stage[j][i].checked) colCount++;
+            })
+            if (colCount === 5) bingoCount++;
+        })
+        // 대각선 검사
+
         return bingoCount
     }
 
