@@ -1,12 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { checkBlock } from '../reducers/bingo';
+import { checkBlock, setBingoCount } from '../reducers/bingo';
 import './BingoTable.scss';
 
 class BingoTable extends Component {
     constructor(props) {
         super(props);
         this.table = React.createRef();
+    }
+
+    _countBingo = () => {
+        const { bingo, player } = this.props;
+        const { stage } = bingo[player];
+        let bingoCount = 0;
+        // 행검사
+        stage.forEach(row => {
+            const checkeds = row.filter(block => block.checked === true);
+            if (checkeds.length === 5) {
+                bingoCount++
+            }
+        })
+        return bingoCount
     }
 
     _getBlock = (pageX, pageY) => {
@@ -22,6 +36,10 @@ class BingoTable extends Component {
     _handleClickTd = ({ pageX, pageY }) => {
         const block = this._getBlock(pageX, pageY);
         if (block) this.props.checkBlock(block);
+
+        const {setBingoCount, player} = this.props;
+        const bingoCount = this._countBingo();
+        setBingoCount(player, bingoCount);
     }
 
     _renderTds = row => {
@@ -63,6 +81,6 @@ class BingoTable extends Component {
 const mapStateToProps = ({ bingo, bingo: { gameStatus, block } }) => ({
     bingo, gameStatus, block
 });
-const mapDispatchToProps = { checkBlock };
+const mapDispatchToProps = { checkBlock, setBingoCount };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BingoTable);

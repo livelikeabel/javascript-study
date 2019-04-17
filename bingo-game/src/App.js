@@ -8,24 +8,33 @@ class App extends Component {
 
 
   render() {
+    const { setGameStatus, gameStatus, player1, player2 } = this.props;
     return (
       <div className="App">
         <h1>BIIIIINGO GAME!!!!</h1>
         <button
-          onClick={() => this.props.setGameStatus(!this.props.gameStatus)}
+          onClick={() => setGameStatus(!gameStatus)}
         >
-          {this.props.gameStatus ? 'RESTART' : 'START'}
+          {gameStatus ? 'RESTART' : 'START'}
         </button>
         <div className="App-bingoWrapper">
-          <BingoTable player={'player1'} />
-          <BingoTable player={'player2'} />
+          <div>
+            <h3>bingoCount: {player1.bingoCount}</h3>
+            <BingoTable player={'player1'} />
+          </div>
+          <div>
+            <h3>bingoCount: {player2.bingoCount}</h3>
+            <BingoTable player={'player2'} />
+          </div>
         </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ bingo: { gameStatus } }) => ({ gameStatus });
+const mapStateToProps = ({ bingo: { gameStatus, player1, player2 } }) => ({
+  gameStatus, player1, player2
+});
 const mapDispatchToProps = { setGameStatus }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
