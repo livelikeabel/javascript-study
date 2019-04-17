@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import BingoTable from './components/BingoTable';
 import { test } from './reducers/bingo';
-import './App.css';
+import './App.scss';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
         <BingoTable player={'player1'}/>
+        <BingoTable player={'player2'}/>
       </div>
     );
   }

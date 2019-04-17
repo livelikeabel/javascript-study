@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import './BingoTable.scss'
 
-const BingoTable = ({ player1: { stage } }) => {
-    const rows = stage.map((row, i) => <BingoRow row={row} key={i} />)
+const BingoTable = ({player, bingo}) => {
+    const rows = bingo[player].stage.map((row, i) => <BingoRow row={row} key={i} />)
     return (
-        <table>
+        <table className='BingoTable'>
             <tbody>
                 {rows}
             </tbody>
@@ -13,14 +14,14 @@ const BingoTable = ({ player1: { stage } }) => {
 }
 
 const BingoRow = ({ row }) => (
-    <tr>
+    <tr className='BingoRow'>
         {row.map(({ number, checked }, i) => (
-            <td key={i}>{number}</td>
+            <td className='BingoRow-td' key={i}>{number}</td>
         ))}
     </tr>
 )
 
-const mapStateToProps = ({ bingo: { player1 } }) => ({ player1 });
+const mapStateToProps = ({ bingo }) => ({ bingo });
 const mapDispatchToProps = {};
 
 export default connect(mapStateToProps, mapDispatchToProps)(BingoTable);
