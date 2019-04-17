@@ -1,8 +1,15 @@
 .App {
   background-color: #282c34;
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   text-align: center;
+  h1 {
+    margin: 0;
+    padding: 30px;
+    color: #f6f6f6;
+  }
+  &-bingoWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
