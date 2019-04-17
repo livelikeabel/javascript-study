@@ -22,3 +22,12 @@ Array.prototype.shuffle = function () {
     }
     return this;
 }
+
+export const checkNumber = (number, stage) => {
+    stage.forEach(row => {
+        row.forEach(block => {
+            if(block.number === number) block.checked = true;
+        })
+    })
+    return stage
+}

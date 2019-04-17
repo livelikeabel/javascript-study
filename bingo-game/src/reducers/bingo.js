@@ -1,4 +1,4 @@
-import { initStage, sortStage } from '../utils';
+import { initStage, sortStage, checkNumber } from '../utils';
 const ROW = 5;
 const COL = 5;
 
@@ -6,7 +6,7 @@ export const SET_GAME_STATUS = 'SET_GAME_STATUS';
 export const CHECK_BLOCK = 'CHECK_BLOCK';
 
 export const setGameStatus = gameStatus => ({ type: SET_GAME_STATUS, gameStatus })
-export const checkBlock = number => ({ type: CHECK_BLOCK, number})
+export const checkBlock = block => ({ type: CHECK_BLOCK, block })
 
 const INITIAL_STATE = {
     gameStatus: false,
@@ -40,9 +40,12 @@ const bingo = (state = INITIAL_STATE, action) => {
                 }
             }
         case CHECK_BLOCK:
-            console.log(action.number)
+            const { block: { number } } = action;
+            const { player1, player2 } = state;
             return {
-                ...state
+                ...state,
+                player1: { stage: checkNumber(number, player1.stage) },
+                player2: { stage: checkNumber(number, player2.stage) }
             }
         default:
             return state

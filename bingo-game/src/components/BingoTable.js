@@ -20,9 +20,8 @@ class BingoTable extends Component {
     }
 
     _handleClickTd = ({ pageX, pageY }) => {
-        console.log(this._getBlock(pageX, pageY))
-        const { number } = this._getBlock(pageX, pageY)
-        this.props.checkBlock(number)
+        const block = this._getBlock(pageX, pageY);
+        if (block) this.props.checkBlock(block);
     }
 
     _renderTds = row => {
@@ -30,7 +29,10 @@ class BingoTable extends Component {
         return row.map(({ number, checked }, i) => (
             <td
                 onClick={number && this._handleClickTd}
-                style={{ height: blockSize }}
+                style={{
+                    height: blockSize,
+                    background: checked ? '#f6f6f6' : ''
+                }}
                 className='BingoRow-td'
                 key={i}>
                 {number}
@@ -61,6 +63,6 @@ class BingoTable extends Component {
 const mapStateToProps = ({ bingo, bingo: { gameStatus, block } }) => ({
     bingo, gameStatus, block
 });
-const mapDispatchToProps = {checkBlock};
+const mapDispatchToProps = { checkBlock };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BingoTable);
