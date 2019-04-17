@@ -33,6 +33,7 @@ const bingo = (state = INITIAL_STATE, action) => {
                 return {
                     ...state,
                     gameStatus: action.gameStatus,
+                    block: { size: 80, row: ROW, col: COL },
                     player1: { ...player1, stage: player1Stage },
                     player2: { ...player2, stage: player2Stage }
                 }
