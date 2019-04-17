@@ -9,6 +9,14 @@ class BingoTable extends Component {
         this.table = React.createRef();
     }
 
+    componentDidUpdate(prevProps) {
+        const { setBingoCount, player } = this.props;
+        const bingoCount = this._countBingo();
+        if (prevProps.bingo[player].bingoCount !== bingoCount) {
+            setBingoCount(player, bingoCount);
+        }
+    }
+
     _countBingo = () => {
         const { bingo, player } = this.props;
         const { stage } = bingo[player];
@@ -16,9 +24,7 @@ class BingoTable extends Component {
         // 행검사
         stage.forEach(row => {
             const checkeds = row.filter(block => block.checked === true);
-            if (checkeds.length === 5) {
-                bingoCount++
-            }
+            if (checkeds.length === 5) bingoCount++
         })
         return bingoCount
     }
@@ -36,10 +42,6 @@ class BingoTable extends Component {
     _handleClickTd = ({ pageX, pageY }) => {
         const block = this._getBlock(pageX, pageY);
         if (block) this.props.checkBlock(block);
-
-        const {setBingoCount, player} = this.props;
-        const bingoCount = this._countBingo();
-        setBingoCount(player, bingoCount);
     }
 
     _renderTds = row => {
