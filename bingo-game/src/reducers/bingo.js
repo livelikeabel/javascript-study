@@ -15,11 +15,13 @@ const INITIAL_STATE = {
     block: { size: 80, row: ROW, col: COL },
     player1: {
         stage: initStage(ROW, COL, { number: null, checked: false }),
-        bingoCount: 0
+        bingoCount: 0,
+        turn: false
     },
     player2: {
         stage: initStage(ROW, COL, { number: null, checked: false }),
-        bingoCount: 0
+        bingoCount: 0,
+        turn: false
     },
 }
 
@@ -34,15 +36,15 @@ const bingo = (state = INITIAL_STATE, action) => {
                     ...state,
                     gameStatus: action.gameStatus,
                     block: { size: 80, row: ROW, col: COL },
-                    player1: { ...player1, stage: player1Stage },
+                    player1: { ...player1, stage: player1Stage, turn: true },
                     player2: { ...player2, stage: player2Stage }
                 }
             }
             if (!action.gameStatus) {
                 return {
                     gameStatus: action.gameStatus,
-                    player1: { stage: initStage(ROW, COL, { number: null, checked: false }), bingoCount: 0 },
-                    player2: { stage: initStage(ROW, COL, { number: null, checked: false }), bingoCount: 0 }
+                    player1: { stage: initStage(ROW, COL, { number: null, checked: false }), bingoCount: 0, turn: false },
+                    player2: { stage: initStage(ROW, COL, { number: null, checked: false }), bingoCount: 0, turn: false }
                 }
             }
         case CHECK_BLOCK:
@@ -50,14 +52,14 @@ const bingo = (state = INITIAL_STATE, action) => {
             const { player1, player2 } = state;
             return {
                 ...state,
-                player1: { ...player1, stage: checkNumber(number, player1.stage) },
-                player2: { ...player2, stage: checkNumber(number, player2.stage) }
+                player1: { ...player1, stage: checkNumber(number, player1.stage), turn: !player1.turn },
+                player2: { ...player2, stage: checkNumber(number, player2.stage), turn: !player2.turn }
             }
         case SET_BINGO_COUNT:
-            const {player, bingoCount} = action;
+            const { player, bingoCount } = action;
             return {
                 ...state,
-                [player]: {...state[player], bingoCount}
+                [player]: { ...state[player], bingoCount }
             }
         default:
             return state

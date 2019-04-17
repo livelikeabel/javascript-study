@@ -58,6 +58,8 @@ class BingoTable extends Component {
     }
 
     _handleClickTd = ({ pageX, pageY }) => {
+        const {bingo, player} = this.props;
+        if(!bingo[player].turn) return alert('잘못된 차례 입니다.');
         const block = this._getBlock(pageX, pageY);
         if (block) this.props.checkBlock(block);
     }
