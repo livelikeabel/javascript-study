@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { checkBlock, setBingoCount } from '../reducers/bingo';
+import { checkBlock, setBingoCount, setGameStatus } from '../reducers/bingo';
 import './BingoTable.scss';
 
 class BingoTable extends Component {
@@ -10,10 +10,25 @@ class BingoTable extends Component {
     }
 
     componentDidUpdate(prevProps) {
+        this._calculateBingoCount(prevProps);
+        this._checkBingoCompleted();
+    }
+
+    _calculateBingoCount = prevProps => {
         const { setBingoCount, player } = this.props;
         const bingoCount = this._countBingo();
         if (prevProps.bingo[player].bingoCount !== bingoCount) {
             setBingoCount(player, bingoCount);
+        }
+    }
+
+    _checkBingoCompleted = () => {
+        const { bingo, bingo: { player1, player2 }, player } = this.props;
+        if (bingo[player].bingoCount >= 5) {
+            player1.bingoCount === player2.bingoCount ?
+                alert('무승부 입니다 :)') :
+                alert(`${player}가 빙고를 완성했습니다!`);
+            this.props.setGameStatus(false);
         }
     }
 
@@ -39,8 +54,8 @@ class BingoTable extends Component {
         if (leftDiagonal.length === 5) bingoCount++;
 
         // 오른쪽 대각선 검사
-        const rightDiagonal = stage.filter((row,i) => {
-            return stage[row.length - (i+1)][i].checked === true
+        const rightDiagonal = stage.filter((row, i) => {
+            return stage[row.length - (i + 1)][i].checked === true
         })
         if (rightDiagonal.length === 5) bingoCount++;
 
@@ -58,8 +73,8 @@ class BingoTable extends Component {
     }
 
     _handleClickTd = ({ pageX, pageY }) => {
-        const {bingo, player} = this.props;
-        if(!bingo[player].turn) return alert('잘못된 차례 입니다.');
+        const { bingo, player } = this.props;
+        if (!bingo[player].turn) return alert('잘못된 차례 입니다.');
         const block = this._getBlock(pageX, pageY);
         if (block) this.props.checkBlock(block);
     }
@@ -103,6 +118,6 @@ class BingoTable extends Component {
 const mapStateToProps = ({ bingo, bingo: { gameStatus, block } }) => ({
     bingo, gameStatus, block
 });
-const mapDispatchToProps = { checkBlock, setBingoCount };
+const mapDispatchToProps = { checkBlock, setBingoCount, setGameStatus };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BingoTable);
