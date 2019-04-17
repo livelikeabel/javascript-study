@@ -3,11 +3,14 @@ const ROW = 5;
 const COL = 5;
 
 export const SET_GAME_STATUS = 'SET_GAME_STATUS';
+export const CHECK_BLOCK = 'CHECK_BLOCK';
 
 export const setGameStatus = gameStatus => ({ type: SET_GAME_STATUS, gameStatus })
+export const checkBlock = number => ({ type: CHECK_BLOCK, number})
 
 const INITIAL_STATE = {
     gameStatus: false,
+    block: { size: 80, row: ROW, col: COL },
     player1: {
         stage: initStage(ROW, COL, { number: null, checked: false })
     },
@@ -35,6 +38,11 @@ const bingo = (state = INITIAL_STATE, action) => {
                     player1: { stage: initStage(ROW, COL, { number: null, checked: false }) },
                     player2: { stage: initStage(ROW, COL, { number: null, checked: false }) }
                 }
+            }
+        case CHECK_BLOCK:
+            console.log(action.number)
+            return {
+                ...state
             }
         default:
             return state

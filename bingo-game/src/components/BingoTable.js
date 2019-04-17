@@ -1,19 +1,55 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import './BingoTable.scss'
+import { checkBlock } from '../reducers/bingo';
+import './BingoTable.scss';
 
 class BingoTable extends Component {
+    constructor(props) {
+        super(props);
+        this.table = React.createRef();
+    }
+
+    _getBlock = (pageX, pageY) => {
+        const { block: { size, row, col }, bingo, player } = this.props
+        const { stage } = bingo[player]
+        const { top, left } = this.table.current.getBoundingClientRect()
+        if (pageX < left || pageX > (left + size * row) ||
+            pageY < top || pageY > (top + size * col)
+        ) return null;
+        return stage[parseInt((pageY - top) / size)][parseInt((pageX - left) / size)]
+    }
+
+    _handleClickTd = ({ pageX, pageY }) => {
+        console.log(this._getBlock(pageX, pageY))
+        const { number } = this._getBlock(pageX, pageY)
+        this.props.checkBlock(number)
+    }
+
+    _renderTds = row => {
+        const { blockSize } = this.props;
+        return row.map(({ number, checked }, i) => (
+            <td
+                onClick={number && this._handleClickTd}
+                style={{ height: blockSize }}
+                className='BingoRow-td'
+                key={i}>
+                {number}
+            </td>
+        ))
+    }
 
     _renderRows = () => {
         const { player, bingo } = this.props;
         return bingo[player].stage.map((row, i) => (
-            <BingoRow row={row} key={i} />
+            <tr className='BingoRow' key={i}>
+                {this._renderTds(row)}
+            </tr>
         ))
     }
 
     render() {
         return (
-            <table className='BingoTable'>
+            <table ref={this.table} className='BingoTable'>
                 <tbody>
                     {this._renderRows()}
                 </tbody>
@@ -22,25 +58,9 @@ class BingoTable extends Component {
     }
 }
 
-const BingoRow = ({ row }) => (
-    <tr className='BingoRow'>
-        {row.map(({ number, checked }, i) => (
-            <td
-                onClick={number && clickTd}
-                className='BingoRow-td'
-                key={i}>
-                {number}
-            </td>
-        ))}
-    </tr>
-)
-
-const clickTd = (target) => {
-    console.log(target)
-    console.log('hi')
-}
-
-const mapStateToProps = ({ bingo, bingo: { gameStatus } }) => ({ bingo, gameStatus });
-const mapDispatchToProps = {};
+const mapStateToProps = ({ bingo, bingo: { gameStatus, block } }) => ({
+    bingo, gameStatus, block
+});
+const mapDispatchToProps = {checkBlock};
 
 export default connect(mapStateToProps, mapDispatchToProps)(BingoTable);
