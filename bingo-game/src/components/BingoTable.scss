@@ -1,13 +1,16 @@
 .BingoTable {
-    margin: 50px;
-    background: gray;
-    border-collapse: collapse;
+  margin: 50px;
+  background: gray;
+  border-collapse: collapse;
 }
 
 .BingoRow {
-    td {
-        height: 80px;
-        width: 80px;
-        border: solid 1px black;
+  td {
+    height: 80px;
+    width: 80px;
+    border: solid 1px black;
+    &:hover {
+        background: #dee2e6;
     }
+  }
 }

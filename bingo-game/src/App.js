@@ -19,11 +19,11 @@ class App extends Component {
         </button>
         <div className="App-bingoWrapper">
           <div style={{ opacity: !player1.turn && 0.3 }}>
-            <h3>bingoCount: {player1.bingoCount}</h3>
+            <h3>P1 Bingo Count: {player1.bingoCount}</h3>
             <BingoTable player={'player1'} />
           </div>
           <div style={{ opacity: !player2.turn && 0.3 }}>
-            <h3>bingoCount: {player2.bingoCount}</h3>
+            <h3>P2 Bingo Count: {player2.bingoCount}</h3>
             <BingoTable player={'player2'} />
           </div>
         </div>
