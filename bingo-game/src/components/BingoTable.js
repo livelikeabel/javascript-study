@@ -34,7 +34,15 @@ class BingoTable extends Component {
             })
             if (colCount === 5) bingoCount++;
         })
-        // 대각선 검사
+        // 왼쪽 대각선 검사
+        const leftDiagonal = stage.filter((_, i) => stage[i][i].checked === true)
+        if (leftDiagonal.length === 5) bingoCount++;
+
+        // 오른쪽 대각선 검사
+        const rightDiagonal = stage.filter((row,i) => {
+            return stage[row.length - (i+1)][i].checked === true
+        })
+        if (rightDiagonal.length === 5) bingoCount++;
 
         return bingoCount
     }
