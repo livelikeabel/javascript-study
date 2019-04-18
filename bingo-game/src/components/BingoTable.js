@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import BingoTd from './BingoTd.js';
 import { checkBlock, setBingoCount, setGameStatus } from '../reducers/bingo';
 import './BingoTable.scss';
 
@@ -79,27 +80,11 @@ class BingoTable extends Component {
         if (block) this.props.checkBlock(block);
     }
 
-    _renderTds = row => {
-        const { blockSize } = this.props;
-        return row.map(({ number, checked }, i) => (
-            <td
-                onClick={number && this._handleClickTd}
-                style={{
-                    height: blockSize,
-                    background: checked ? '#f6f6f6' : ''
-                }}
-                className='BingoRow-td'
-                key={i}>
-                {number}
-            </td>
-        ))
-    }
-
     _renderRows = () => {
-        const { player, bingo } = this.props;
+        const { player, bingo, block } = this.props;
         return bingo[player].stage.map((row, i) => (
-            <tr className='BingoRow' key={i}>
-                {this._renderTds(row)}
+            <tr key={i}>
+                <BingoTd row={row} block={block} onClickTd={this._handleClickTd} />
             </tr>
         ))
     }

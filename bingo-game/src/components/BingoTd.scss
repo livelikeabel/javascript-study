@@ -1,0 +1,7 @@
+td {
+  border: solid 1px black;
+  &:hover {
+    background: #dee2e6;
+    opacity: 0.5;
+  }
+}
