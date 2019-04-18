@@ -25,7 +25,7 @@ const INITIAL_STATE = {
     },
 }
 
-const bingo = (state = INITIAL_STATE, action) => {
+const bingo = (state = { ...INITIAL_STATE }, action) => {
     switch (action.type) {
         case SET_GAME_STATUS:
             if (action.gameStatus) {
@@ -42,7 +42,7 @@ const bingo = (state = INITIAL_STATE, action) => {
             }
             if (!action.gameStatus) {
                 return {
-                    gameStatus: action.gameStatus,
+                    ...INITIAL_STATE,
                     player1: { stage: initStage(ROW, COL, { number: null, checked: false }), bingoCount: 0, turn: false },
                     player2: { stage: initStage(ROW, COL, { number: null, checked: false }), bingoCount: 0, turn: false }
                 }
