@@ -1,35 +1,48 @@
 import React,{ Component } from 'react';
 import { req } from './api';
 import Card from './components/Card';
+import Header from './components/Header';
 import './App.css';
 
 class App extends Component {
 
-  state = { cat: [], dog: [] };
+  state = { animalData: [],animalType: 'cat' };
 
   componentDidMount() {
-    req('http://localhost:8080/dog').then(res => {
-      console.log(res)
-      this.setState({ dog: res })
+    this._getAnimal();
+  }
+
+  componentDidUpdate(_,{ animalType: prevAnimalType }) {
+    if (prevAnimalType != this.state.animalType) {
+      this._getAnimal(this.state.animalType);
+    }
+  }
+
+  _getAnimal = (type = 'cat') => {
+    req(`http://localhost:8080/${type}`).then(res => {
+      this.setState({ animalData: res })
     });
   }
 
-  _renderCat() {
-    if(this.state.dog.length === 0 ) return;
-    return this.state.dog.map((data) => {
-      return <Card {...data} key={data._id} />
-    })
+  handleChangeAnimalType = animalType => {
+    this.setState({ animalType })
   }
 
   render() {
+    const { animalData } = this.state;
     return (
       <div className="App">
-        냥이와 댕댕
-        {/* {this.state.cat.length && this._renderCat()} */}
-        {this.state.dog.length && this._renderCat()}
+        <Header name="냥이와 댕댕" onClickAnimalType={this.handleChangeAnimalType} />
+        {animalData.length && <List animalData={animalData} />}
       </div>
     );
   }
 }
+
+const List = ({ animalData }) => (
+  animalData.map((data) => (
+    <Card {...data} key={data._id} />
+  ))
+)
 
 export default App;
