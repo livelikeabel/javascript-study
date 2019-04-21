@@ -5,17 +5,18 @@ import './App.css';
 
 class App extends Component {
 
-  state = { cat: [] }
+  state = { cat: [], dog: [] };
 
   componentDidMount() {
-    req().then(res => {
-      this.setState({ cat: res })
+    req('http://localhost:8080/dog').then(res => {
+      console.log(res)
+      this.setState({ dog: res })
     });
   }
 
   _renderCat() {
-    if(this.state.cat.length === 0 ) return;
-    return this.state.cat.map((data) => {
+    if(this.state.dog.length === 0 ) return;
+    return this.state.dog.map((data) => {
       return <Card {...data} key={data._id} />
     })
   }
@@ -24,7 +25,8 @@ class App extends Component {
     return (
       <div className="App">
         냥이와 댕댕
-        {this.state.cat.length && this._renderCat()}
+        {/* {this.state.cat.length && this._renderCat()} */}
+        {this.state.dog.length && this._renderCat()}
       </div>
     );
   }

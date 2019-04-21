@@ -1,6 +1,5 @@
-const request = new Request('http://localhost:8080/cat');
-
-export const req = () => {
+export const req = url => {
+  const request = new Request(url);
   return fetch(request)
     .then(res => res.json())
     .catch(err => {
