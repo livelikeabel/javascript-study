@@ -2,11 +2,12 @@ import React,{ Component } from 'react';
 import { req } from './api';
 import Header from './components/Header';
 import List from './components/List';
+import Loading from './components/Loading';
 import './App.css';
 
 class App extends Component {
 
-  state = { animalData: [],animalType: 'cat' };
+  state = { animalData: [],animalType: 'cat',isLoading: false };
 
   componentDidMount() {
     this._getAnimal();
@@ -28,21 +29,26 @@ class App extends Component {
     this.setState({ animalType })
   }
 
+  handleToggleLoading = bool => (this.setState({ isLoading: bool }))
+
   render() {
-    const { animalData } = this.state;
+    const { animalData,isLoading } = this.state;
     return (
       <div className="App">
-        <Header name="냥이와 댕댕" onClickAnimalType={this.handleChangeAnimalType} />
-        {animalData.length && <List animalData={animalData} />}
+        <Header
+          name="냥이와 댕댕"
+          onClickAnimalType={this.handleChangeAnimalType}
+        />
+        {animalData.length &&
+          <List
+            animalData={animalData}
+            onChangeToggleLoading={this.handleToggleLoading}
+            isLoading={isLoading}
+          />}
+        <Loading isLoading={isLoading} />
       </div>
     );
   }
 }
-
-// const List = ({ animalData }) => (
-//   animalData.map((data) => (
-//     <Card {...data} key={data._id} />
-//   ))
-// )
 
 export default App;

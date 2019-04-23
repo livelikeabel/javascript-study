@@ -6,21 +6,31 @@ class List extends Component {
   state = { showingCard: 10 };
 
   componentDidMount() {
-    window.addEventListener("scroll",this.handleScroll);
+    window.addEventListener("scroll",this._handleScroll);
   }
   componentWillUnmount() {
-    window.removeEventListener("scroll",this.handleScroll);
+    window.removeEventListener("scroll",this._handleScroll);
   }
-  handleScroll = () => {
+  _handleScroll = () => {
     const { innerHeight } = window;
     const { scrollHeight } = document.body;
     const scrollTop = (document.documentElement && document.documentElement.scrollTop) ||
       document.body.scrollTop;
 
-    if (scrollHeight - innerHeight - scrollTop < 100) {
-      this.setState({ showingCard: this.state.showingCard + 10 })
+    if (scrollHeight - innerHeight - scrollTop < 100 && !this.props.isLoading) {
+      this._shwoMore()
     }
   }
+
+  _shwoMore = () => {
+    const { onChangeToggleLoading } = this.props;
+    onChangeToggleLoading(true);
+    setTimeout(() => {
+      this.setState({ showingCard: this.state.showingCard + 10 })
+      onChangeToggleLoading(false)
+    },750);
+  }
+
   render() {
     const { animalData } = this.props;
     const { showingCard } = this.state;
@@ -31,7 +41,9 @@ class List extends Component {
 }
 
 List.propTypes = {
-  animalData: PropTypes.array
+  animalData: PropTypes.array,
+  onChangeToggleLoading: PropTypes.func,
+  isLoading: PropTypes.bool
 }
 
 export default List;
