@@ -1,7 +1,7 @@
 import React,{ Component } from 'react';
 import { req } from './api';
-import Card from './components/Card';
 import Header from './components/Header';
+import List from './components/List';
 import './App.css';
 
 class App extends Component {
@@ -39,10 +39,10 @@ class App extends Component {
   }
 }
 
-const List = ({ animalData }) => (
-  animalData.map((data) => (
-    <Card {...data} key={data._id} />
-  ))
-)
+// const List = ({ animalData }) => (
+//   animalData.map((data) => (
+//     <Card {...data} key={data._id} />
+//   ))
+// )
 
 export default App;
