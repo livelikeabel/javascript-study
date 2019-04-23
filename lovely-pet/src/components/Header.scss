@@ -1,0 +1,23 @@
+.Header {
+  background: #ffffff;
+  border-bottom: 1px solid #d2d5de;
+  h1 {
+    font-size: 20px;
+    margin: 4px 0;
+  }
+}
+
+.Tab {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  li {
+    width: 60px;
+    height: 35px;
+    padding: 8px 0;
+    line-height: 35px;
+    color: #111;
+    font-weight: 700; 
+  }
+}
