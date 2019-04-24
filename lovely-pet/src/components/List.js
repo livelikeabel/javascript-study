@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import './List.scss';
 import Card from './Card';
 
 class List extends Component {
@@ -44,9 +45,13 @@ class List extends Component {
   render() {
     const { animalData } = this.props;
     const { showingCard } = this.state;
-    return animalData.slice(0, showingCard).map((data) => (
-      <Card {...data} key={data._id} />
-    ))
+    return (
+      <div className="List">
+        {animalData.slice(0, showingCard).map((data) => (
+          <Card {...data} key={data._id} />
+        ))}
+      </div>
+    )
   }
 }
 
