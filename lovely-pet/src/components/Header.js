@@ -1,14 +1,14 @@
 import React from 'react';
 import './Header.scss';
 
-const Header = ({ name,onClickAnimalType }) => {
+const Header = ({ name, onClickAnimalType }) => {
   return (
     <div className="Header">
       <h1>{name}</h1>
       <Tab
         tabList={[
-          { name: '냥',type: 'cat' },
-          { name: '댕댕이',type: 'dog' }
+          { name: '냥', type: 'cat' },
+          { name: '댕댕이', type: 'dog' }
         ]}
         onClickAnimalType={onClickAnimalType}
       />
@@ -16,12 +16,12 @@ const Header = ({ name,onClickAnimalType }) => {
   )
 }
 
-const Tab = ({ tabList,onClickAnimalType }) => {
+const Tab = ({ tabList, onClickAnimalType }) => {
   return (
     <ul className="Tab">
-      {tabList.map(({ name,type },i) => (
+      {tabList.map(({ name, type }, i) => (
         <li
-          onClick={onClickAnimalType.bind(this,type)}
+          onClick={onClickAnimalType.bind(this, type)}
           key={i}
         >
           {name}

@@ -1,4 +1,4 @@
-import React,{ Component } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Card from './Card';
 
@@ -6,14 +6,20 @@ class List extends Component {
   state = { showingCard: 10 };
 
   componentDidMount() {
-    window.addEventListener("scroll",this._handleScroll);
+    window.addEventListener("scroll", this._handleScroll);
+  }
+  componentDidUpdate(prevProps) {
+    if (prevProps.animalType != this.props.animalType) {
+      this.setState({ showingCard: 10 })
+    }
   }
   componentWillUnmount() {
-    window.removeEventListener("scroll",this._handleScroll);
+    window.removeEventListener("scroll", this._handleScroll);
   }
   _handleScroll = () => {
     const { innerHeight } = window;
     const { scrollHeight } = document.body;
+    //document.body // Safari
     const scrollTop = (document.documentElement && document.documentElement.scrollTop) ||
       document.body.scrollTop;
 
@@ -28,13 +34,13 @@ class List extends Component {
     setTimeout(() => {
       this.setState({ showingCard: this.state.showingCard + 10 })
       onChangeToggleLoading(false)
-    },750);
+    }, 750);
   }
 
   render() {
     const { animalData } = this.props;
     const { showingCard } = this.state;
-    return animalData.slice(0,showingCard).map((data) => (
+    return animalData.slice(0, showingCard).map((data) => (
       <Card {...data} key={data._id} />
     ))
   }

@@ -1,4 +1,4 @@
-import React,{ Component } from 'react';
+import React, { Component } from 'react';
 import { req } from './api';
 import Header from './components/Header';
 import List from './components/List';
@@ -7,13 +7,13 @@ import './App.css';
 
 class App extends Component {
 
-  state = { animalData: [],animalType: 'cat',isLoading: false };
+  state = { animalData: [], animalType: 'cat', isLoading: false };
 
   componentDidMount() {
     this._getAnimal();
   }
 
-  componentDidUpdate(_,{ animalType: prevAnimalType }) {
+  componentDidUpdate(_, { animalType: prevAnimalType }) {
     if (prevAnimalType != this.state.animalType) {
       this._getAnimal(this.state.animalType);
     }
@@ -32,7 +32,7 @@ class App extends Component {
   handleToggleLoading = bool => (this.setState({ isLoading: bool }))
 
   render() {
-    const { animalData,isLoading } = this.state;
+    const { animalData, animalType, isLoading } = this.state;
     return (
       <div className="App">
         <Header
@@ -42,6 +42,7 @@ class App extends Component {
         {animalData.length &&
           <List
             animalData={animalData}
+            animalType={animalType}
             onChangeToggleLoading={this.handleToggleLoading}
             isLoading={isLoading}
           />}
