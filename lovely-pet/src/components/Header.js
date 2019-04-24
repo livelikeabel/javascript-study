@@ -7,8 +7,8 @@ const Header = ({ name, onClickAnimalType }) => {
       <h1>{name}</h1>
       <Tab
         tabList={[
-          { name: '냥', type: 'cat' },
-          { name: '댕댕이', type: 'dog' }
+          { name: '냥이', type: 'cat' },
+          { name: '댕댕', type: 'dog' }
         ]}
         onClickAnimalType={onClickAnimalType}
       />
