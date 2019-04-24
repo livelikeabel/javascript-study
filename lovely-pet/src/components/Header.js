@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createRef, Component } from 'react';
 import './Header.scss';
 
 const Header = ({ name, onClickAnimalType }) => {
@@ -16,19 +16,40 @@ const Header = ({ name, onClickAnimalType }) => {
   )
 }
 
-const Tab = ({ tabList, onClickAnimalType }) => {
-  return (
-    <ul className="Tab">
-      {tabList.map(({ name, type }, i) => (
-        <li
-          onClick={onClickAnimalType.bind(this, type)}
-          key={i}
-        >
-          {name}
-        </li>
-      ))}
-    </ul>
-  )
+class Tab extends Component {
+  constructor(props) {
+    super(props);
+    this.tabRef = createRef();
+  }
+  componentDidMount() {
+    window.addEventListener("scroll", this._handleScroll);
+  }
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this._handleScroll);
+  }
+  _handleScroll = () => {
+    const sticky = this.tabRef.current;
+    if (window.pageYOffset > sticky.offsetTop) {
+      sticky.classList.add("sticky")
+    } else {
+      sticky.classList.remove("sticky")
+    }
+  }
+  render() {
+    const { tabList, onClickAnimalType } = this.props;
+    return (
+      <ul className="Tab" ref={this.tabRef}>
+        {tabList.map(({ name, type }, i) => (
+          <li
+            onClick={onClickAnimalType.bind(this, type)}
+            key={i}
+          >
+            {name}
+          </li>
+        ))}
+      </ul>
+    )
+  }
 }
 
 export default Header;

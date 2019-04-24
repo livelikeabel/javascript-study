@@ -9,7 +9,7 @@ class List extends Component {
     window.addEventListener("scroll", this._handleScroll);
   }
   componentDidUpdate(prevProps) {
-    if (prevProps.animalType != this.props.animalType) {
+    if (prevProps.animalType !== this.props.animalType) {
       this.setState({ showingCard: 10 })
     }
   }

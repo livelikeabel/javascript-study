@@ -1,6 +1,5 @@
 .Header {
   background: #ffffff;
-  border-bottom: 1px solid #d2d5de;
   h1 {
     font-size: 20px;
     margin: 4px 0;
@@ -12,6 +11,8 @@
   justify-content: center;
   margin: 0;
   padding: 0;
+  background: #ffffff;
+  border-bottom: 1px solid #d2d5de;
   li {
     width: 60px;
     height: 35px;
@@ -20,4 +21,10 @@
     color: #111;
     font-weight: 700; 
   }
+}
+
+.sticky {
+  position: fixed;
+  top: 0px;
+  width: 100%;
 }

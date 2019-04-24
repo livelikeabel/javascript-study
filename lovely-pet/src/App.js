@@ -3,7 +3,6 @@ import { req } from './api';
 import Header from './components/Header';
 import List from './components/List';
 import Loading from './components/Loading';
-import './App.css';
 
 class App extends Component {
 
@@ -14,7 +13,7 @@ class App extends Component {
   }
 
   componentDidUpdate(_, { animalType: prevAnimalType }) {
-    if (prevAnimalType != this.state.animalType) {
+    if (prevAnimalType !== this.state.animalType) {
       this._getAnimal(this.state.animalType);
     }
   }
@@ -34,7 +33,7 @@ class App extends Component {
   render() {
     const { animalData, animalType, isLoading } = this.state;
     return (
-      <div className="App">
+      <>
         <Header
           name="냥이와 댕댕"
           onClickAnimalType={this.handleChangeAnimalType}
@@ -47,7 +46,7 @@ class App extends Component {
             isLoading={isLoading}
           />}
         <Loading isLoading={isLoading} />
-      </div>
+      </>
     );
   }
 }
