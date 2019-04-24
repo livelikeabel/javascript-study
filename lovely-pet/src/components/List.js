@@ -11,6 +11,11 @@ class List extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps.animalType !== this.props.animalType) {
       this.setState({ showingCard: 10 })
+      const { documentElement, body } = document;
+      documentElement ?
+        documentElement.scrollTop = 0 :
+        // Safari
+        body.scrollTop = 0;
     }
   }
   componentWillUnmount() {
