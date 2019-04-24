@@ -47,9 +47,11 @@ class List extends Component {
     const { showingCard } = this.state;
     return (
       <div className="List">
-        {animalData.slice(0, showingCard).map((data) => (
-          <Card {...data} key={data._id} />
-        ))}
+        <div className="List__inner">
+          {animalData.slice(0, showingCard).map((data) => (
+            <Card {...data} key={data._id} />
+          ))}
+        </div>
       </div>
     )
   }
