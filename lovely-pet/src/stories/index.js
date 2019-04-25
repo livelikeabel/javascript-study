@@ -21,12 +21,18 @@ storiesOf('List', module)
   ))
 // 스크롤 내리면, showingCard 숫자늘려주기, 그래서 더 보여주기.
 
+const headerProps = {
+  name: "냥이와 댕댕",
+  onClickAnimalType: action('handleChangeAnimalType')
+}
+
 storiesOf('Header', module)
-  .add('when render', () => (
-    <Header
-      name="냥이와 댕댕"
-      onClickAnimalType={action('handleChangeAnimalType')}
-    />
+  .add('when render', () => <Header {...headerProps} />)
+  .add('select cat', () => (
+    <Header animalType="cat" {...headerProps} />
+  ))
+  .add('select dog', () => (
+    <Header animalType="dog" {...headerProps} />
   ))
 
 storiesOf('Loading', module)
