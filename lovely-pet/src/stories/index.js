@@ -19,7 +19,6 @@ storiesOf('List', module)
   .add('with animalData(dog)', () => (
     <List animalData={animalData["dog"]} />
   ))
-// 스크롤 내리면, showingCard 숫자늘려주기, 그래서 더 보여주기.
 
 const headerProps = {
   name: "냥이와 댕댕",
@@ -40,8 +39,6 @@ storiesOf('Loading', module)
   .add('when isLoading false', () => <Loading isLoading={false} />)
 
 
-// 폰트어썸을 못불러오고 있다... ㅠ
-// animalData가 dog이고, gender가 male일 때 case추가 하기
 storiesOf('Card', module)
   .add('reder(cat, female)', () => {
     return <Card {...animalData['cat'][0]} />
@@ -49,7 +46,3 @@ storiesOf('Card', module)
 
 storiesOf('App', module)
   .add('render', () => <App />)
-  .add('click dog', () => {
-    // state의 animalType을 dog로 바꿔주어야 한다...
-    return <App />
-  })
