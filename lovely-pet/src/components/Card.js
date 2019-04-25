@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './Card.scss';
 import { getRendomColor } from '../utils';
 
@@ -22,6 +23,13 @@ const Card = ({ imageUrl, age, name, gender }) => {
       </div>
     </div>
   )
+}
+
+Card.propTypes = {
+  imageUrl: PropTypes.string.isRequired,
+  age: PropTypes.number,
+  name: PropTypes.string,
+  gender: PropTypes.string
 }
 
 export default Card;
