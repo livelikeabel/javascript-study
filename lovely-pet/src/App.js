@@ -38,13 +38,12 @@ class App extends Component {
           name="냥이와 댕댕"
           onClickAnimalType={this.handleChangeAnimalType}
         />
-        {animalData.length &&
-          <List
-            animalData={animalData}
-            animalType={animalType}
-            onChangeToggleLoading={this.handleToggleLoading}
-            isLoading={isLoading}
-          />}
+        <List
+          animalData={animalData}
+          animalType={animalType}
+          onChangeToggleLoading={this.handleToggleLoading}
+          isLoading={isLoading}
+        />
         <Loading isLoading={isLoading} />
       </>
     );

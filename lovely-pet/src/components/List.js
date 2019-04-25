@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './List.scss';
 import Card from './Card';
+import Loading from './Loading';
 
 class List extends Component {
   state = { showingCard: 10 };
@@ -45,6 +46,7 @@ class List extends Component {
   render() {
     const { animalData } = this.props;
     const { showingCard } = this.state;
+    if (!animalData.length) return <Loading/>;
     return (
       <div className="List">
         <div className="List__inner">
@@ -55,6 +57,10 @@ class List extends Component {
       </div>
     )
   }
+}
+
+List.defaultProps = {
+  animalData: []
 }
 
 List.propTypes = {
