@@ -6,7 +6,9 @@ import { linkTo } from '@storybook/addon-links';
 
 import { Button, Welcome } from '@storybook/react/demo';
 
+import Header from '../components/Header';
 import List from '../components/List';
+import animalData from '../../mock-data/db.json';
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
 
@@ -22,3 +24,15 @@ storiesOf('Button', module)
 
 storiesOf('List', module)
   .add('is loading..', () => <List animalData={[]} />)
+  .add('with animalData', () => (
+    <List animalData={animalData["cat"]} />
+  ))
+// 스크롤 내리면, showingCard 숫자늘려주기, 그래서 더 보여주기.
+
+storiesOf('Header', module)
+  .add('when render', () => (
+    <Header
+      name="냥이와 댕댕"
+      onClickAnimalType={action('handleChangeAnimalType')}
+    />
+  ))
