@@ -1,7 +1,10 @@
 import React, { createRef, Component } from 'react';
+import PropTypes from 'prop-types';
 import './Header.scss';
 
-const Header = ({ name, onClickAnimalType }) => {
+const SELECTED_STYLE = { color: '#111', borderBottom: '2px solid #111' };
+
+const Header = ({ name, animalType, onClickAnimalType }) => {
   return (
     <div className="Header">
       <h1>{name}</h1>
@@ -10,6 +13,7 @@ const Header = ({ name, onClickAnimalType }) => {
           { name: '냥이', type: 'cat' },
           { name: '댕댕', type: 'dog' }
         ]}
+        animalType={animalType}
         onClickAnimalType={onClickAnimalType}
       />
     </div>
@@ -36,11 +40,13 @@ class Tab extends Component {
     }
   }
   render() {
-    const { tabList, onClickAnimalType } = this.props;
+    const { tabList, animalType, onClickAnimalType } = this.props;
+
     return (
       <ul className="Tab" ref={this.tabRef}>
         {tabList.map(({ name, type }, i) => (
           <li
+            style={animalType === type ? SELECTED_STYLE : {}}
             onClick={onClickAnimalType.bind(this, type)}
             key={i}
           >
@@ -50,6 +56,12 @@ class Tab extends Component {
       </ul>
     )
   }
+}
+
+Header.propTypes = {
+  name: PropTypes.string,
+  animalType: PropTypes.string,
+  onClickAnimalType: PropTypes.func
 }
 
 export default Header;

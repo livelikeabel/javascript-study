@@ -36,6 +36,7 @@ class App extends Component {
       <>
         <Header
           name="냥이와 댕댕"
+          animalType={animalType}
           onClickAnimalType={this.handleChangeAnimalType}
         />
         <List

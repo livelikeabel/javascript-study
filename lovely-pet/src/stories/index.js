@@ -19,15 +19,6 @@ storiesOf('List', module)
   .add('with animalData(dog)', () => (
     <List animalData={animalData["dog"]} />
   ))
-  .add('with Header', () => (
-    <div>
-      <Header
-        name="냥이와 댕댕"
-        onClickAnimalType={action('handleChangeAnimalType')}
-      />
-      <List animalData={animalData["cat"]}/>
-    </div>
-  ))
 // 스크롤 내리면, showingCard 숫자늘려주기, 그래서 더 보여주기.
 
 storiesOf('Header', module)
