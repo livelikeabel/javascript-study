@@ -8,6 +8,8 @@ import { Button, Welcome } from '@storybook/react/demo';
 
 import Header from '../components/Header';
 import List from '../components/List';
+import Loading from '../components/Loading';
+
 import animalData from '../../mock-data/db.json';
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
@@ -36,3 +38,7 @@ storiesOf('Header', module)
       onClickAnimalType={action('handleChangeAnimalType')}
     />
   ))
+
+storiesOf('Loading', module)
+  .add('default(isLoading true)', () => <Loading/>)
+  .add('when isLoading false', () => <Loading isLoading={false}/>)
