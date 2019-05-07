@@ -40,5 +40,11 @@ module.exports = {
       template: 'public/index.html',
       favicon: 'public/favicon.ico'
     })
-  ]
+  ],
+  devServer: {
+    host: 'localhost',
+    port: port,
+    historyApiFallback: true,
+    open: true
+  }
 };
