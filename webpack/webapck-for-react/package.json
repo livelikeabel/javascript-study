@@ -5,8 +5,10 @@
   "license": "MIT",
   "scripts": {
     "dev": "webpack-dev-server --env.env=dev",
+    "dev:bundleanalyzer": "yarn dev --env.addons=bundleanalyzer",
     "prebuild": "rimraf dist",
-    "build": "cross-env NODE_ENV=production webpack -p --env.env=prod"
+    "build": "cross-env NODE_ENV=production webpack -p --env.env=prod",
+    "build:bundleanalyzer": "yarn build --env.addons=bundleanalyzer"
   },
   "dependencies": {
     "react": "^16.8.6",
@@ -34,6 +36,7 @@
     "rimraf": "^2.6.3",
     "style-loader": "^0.23.1",
     "webpack": "^4.30.0",
+    "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^3.3.2",
     "webpack-dev-server": "^3.3.1",
     "webpack-merge": "^4.2.1"
