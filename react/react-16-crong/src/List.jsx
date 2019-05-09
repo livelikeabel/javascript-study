@@ -1,7 +1,9 @@
 import React from 'react'
+import Loading from './Loading';
 
-const List = ({ todos }) => {
-  const todoList = todos.map((todo, i) => <li key={i}>{todo}</li>)
+const List = ({ todos, loading }) => {
+  let todoList = <Loading />;
+  if (!loading) todoList = todos.map(({ title, id }) => <li key={id}>{title}</li>);
   return (
     <ul>
       {todoList}
