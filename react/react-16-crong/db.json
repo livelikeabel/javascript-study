@@ -1,10 +1,10 @@
 {
   "todo": [
-    { "id": 1111, "title": "js공부하기", "staus": "todo" },
-    { "id": 1112, "title": "js공부하기", "staus": "todo" },
-    { "id": 1113, "title": "js공부하기", "staus": "todo" },
-    { "id": 1114, "title": "js공부하기", "staus": "todo" },
-    { "id": 1115, "title": "js공부하기", "staus": "todo" },
-    { "id": 1116, "title": "js공부하기", "staus": "todo" }
+    { "id": 1111, "title": "js공부하기", "status": "todo" },
+    { "id": 1112, "title": "js공부하기", "status": "todo" },
+    { "id": 1113, "title": "js공부하기", "status": "todo" },
+    { "id": 1114, "title": "js공부하기", "status": "todo" },
+    { "id": 1115, "title": "js공부하기", "status": "todo" },
+    { "id": 1116, "title": "js공부하기", "status": "todo" }
   ]
 }
