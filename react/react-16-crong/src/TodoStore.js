@@ -1,32 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
-import List from './List.jsx';
-import Header from './Header.jsx';
-import Form from './Form.jsx';
+import React, { useEffect, useReducer } from 'react';
 import useFetch from './useFetch.js';
+import { todoReducer } from './reducer.js';
 
 export const TodoContext = React.createContext();
 
-const TodoStore = () => {
-  const [todos, setTodos] = useState([]);
+const TodoStore = props => {
+  const [todos, dispatch] = useReducer(todoReducer, []);
 
-  const loading = useFetch('http://localhost:8000/todo', setTodos);
-
-  const addTodo = newTodo => {
-    setTodos([...todos, { id: todos.length, title: newTodo, status: 'todo' }]);
+  const setInitData = (initData) => {
+    dispatch({ type: 'SET_INIT_DATA', payload: initData })
   }
 
-  const changeTodoStatus = id => {
-    const updateTodos = todos.map(todo => {
-      if (todo.id === +id) {
-        if (todo.status === 'done') todo.status = "todo";
-        else todo.status = "done"
-      }
-      return todo
-    })
-
-    setTodos(updateTodos);
-  }
+  const loading = useFetch('http://localhost:8000/todo', setInitData);
 
   useEffect(() => {
     console.log('new !')
@@ -34,10 +19,8 @@ const TodoStore = () => {
   }, [todos])
 
   return (
-    <TodoContext.Provider value={{ todos, loading, addTodo, changeTodoStatus }}>
-      <Header />
-      <Form />
-      <List />
+    <TodoContext.Provider value={{ todos, loading, dispatch }}>
+      {props.children}
     </TodoContext.Provider>
   )
 }
