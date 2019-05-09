@@ -13,7 +13,6 @@ const useFetch = (url, callback) => {
 
   useEffect(() => {
     fetchInitialData();
-    console.log('1')
   }, []);
 
   return loading;
