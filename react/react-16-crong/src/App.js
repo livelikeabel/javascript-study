@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import List from './List.jsx';
+import Header from './Header.jsx';
 import useFetch from './useFetch.js';
 
 const App = () => {
@@ -18,6 +19,18 @@ const App = () => {
     setTodos([...todos, { id: todos.length, title: newTodo, status: 'todo' }]);
   }
 
+  const changeTodoStatus = id => {
+    const updateTodos = todos.map(todo => {
+      if (todo.id === +id) {
+        if (todo.status === 'done') todo.status = "todo";
+        else todo.status = "done"
+      }
+      return todo
+    })
+
+    setTodos(updateTodos);
+  }
+
   useEffect(() => {
     console.log('new !')
     console.log(todos)
@@ -25,12 +38,12 @@ const App = () => {
 
   return (
     <>
-      <h1>todo 애플리케이션</h1>
+      <Header todos={todos} />
       <form>
         <input type="text" name="" onChange={changeInputData} />
         <button onClick={addTodo}>할일추가</button>
       </form>
-      <List todos={todos} loading={loading} />
+      <List todos={todos} loading={loading} changeTodoStatus={changeTodoStatus} />
     </>
   )
 }
