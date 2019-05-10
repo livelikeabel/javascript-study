@@ -21,6 +21,7 @@
     <li class="item">Make dinner</li>
     <li class="item">Code for one hour</li>
   </ul>
+  <button id="hi-btn">hi</button>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
 
@@ -75,6 +76,23 @@
     // 이벤트 함수를 디바운싱 함수로 감싸서 2초 마다 발생하도록 한다.
     let elem = document.getElementById('todo-app');
     elem.addEventListener('scroll', debounce(foo, 2000))
+
+
+    const throttle = (func, limit) => {
+      let inThrottle;
+      return function () {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+          func.apply(context, args);
+          inThrottle = true;
+          setTimeout(() => inThrottle = false, limit);
+        }
+      }
+    }
+
+    const hiBtn = document.getElementById('hi-btn');
+    hiBtn.addEventListener('click', throttle(function (){console.log('hi')}, 1000))
 
 
   </script>
