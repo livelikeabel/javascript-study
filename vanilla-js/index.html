@@ -7,8 +7,14 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
 </head>
-
 <body>
+  <style>
+    ul {
+      height: 30px;
+      background: red;
+      overflow: scroll;
+    }
+  </style>
   <ul id="todo-app">
     <li class="item">Walk the dog</li>
     <li class="item">Pay bills</li>
@@ -20,8 +26,8 @@
 
       // 리스트 아이템의 전체 영역에 이벤트 리스너 등록
       const todoApp = document.getElementById('todo-app');
-      todoApp.addEventListener('click', function(e) {
-        if(e.target && e.target.nodeName === 'LI') {
+      todoApp.addEventListener('click', function (e) {
+        if (e.target && e.target.nodeName === 'LI') {
           alert(e.target.innerHTML);
         }
       });
@@ -30,8 +36,8 @@
     const arr = [10, 12, 15, 21];
     for (let i = 0; i < arr.length; i++) {
       // i 값을 setTime 함수 안에 전달하여 각 함수 호출마다 올바른 값에 접근하게 한다.
-      setTimeout(function(i_local) {
-        return function() {
+      setTimeout(function (i_local) {
+        return function () {
           console.log('number: ', arr[i])
         }
       }(i), 2000);
@@ -43,6 +49,34 @@
     //     console.log('number: ', arr[i])
     //   }, 2000);
     // }
+
+    // 이벤트를 감쌀 디바운싱 함수
+    function debounce(fn, delay) {
+      // 타이머 선언
+      let timer = null;
+      // 타이머 변수에 접근 가능한 클로져 함수
+      return function () {
+        // 클로져 함수 안에서 this와 arguments 변수로 디바운싱 함수의 스코프와 변수를 접근한다.
+        let context = this;
+        let args = arguments;
+        // 만약 이벤트가 호출되면 타이머를 초기화 하고 다시 시작한다.
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+          fn.apply(context, args);
+        }, delay);
+      }
+    }
+
+    // 사용자가 스크롤 할 때 호출되는 이벤트 함수
+    function foo() {
+      console.log('You are scrolling!');
+    }
+
+    // 이벤트 함수를 디바운싱 함수로 감싸서 2초 마다 발생하도록 한다.
+    let elem = document.getElementById('todo-app');
+    elem.addEventListener('scroll', debounce(foo, 2000))
+
+
   </script>
 </body>
 
