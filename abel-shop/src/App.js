@@ -13,6 +13,7 @@ const App = () => {
 
   const globalState = { wishlist, setWishlist }
 
+  // 리팩토링 한다면, 읽는 사람을 위해 wishlist의 initialstate 또는 데이터의 구조를 상수로 만들 것이다.
   return (
     <>
       <ShopContext.Provider value={globalState}>

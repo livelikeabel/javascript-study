@@ -10,36 +10,26 @@ const WishItem = ({ item, coupons }) => {
     selected, quantity
   } = item;
 
+  const setNewWishList = (id, truthyItem) => {
+    const newWishList = wishlist.map((item) => {
+      return item.product.id === id ? truthyItem : item;
+    })
+    setWishlist(newWishList);
+  }
+
   // 이것도... 비지니스 로직이기에 view가 알고있어야 하는 정보가 아니다.
-  const toggleSelected = id => {
-    const toggled = wishlist.map((item) => {
-      const { product, selected } = item;
-      return product.id === id ?
-        { ...item, selected: !selected } :
-        item;
-    })
-    setWishlist(toggled);
+  const toggleSelected = (id, item) => {
+    const { selected } = item;
+    setNewWishList(id, { ...item, selected: !selected });
   }
 
-  const handleChangeCount = (id, { target: { value } }) => {
-    const changed = wishlist.map(item => {
-      const { product } = item;
-      return product.id === id ?
-        { ...item, quantity: value } :
-        item;
-    })
-    setWishlist(changed);
+  const handleChangeCount = (id, item, { target: { value } }) => {
+    setNewWishList(id, { ...item, quantity: value })
   }
 
-  const handleChangeCoupon = (id, { target: { value } }) => {
+  const handleChangeCoupon = (id, item,{ target: { value } }) => {
     const [type, discount] = value.split(',');
-    const changed = wishlist.map(item => {
-      const { product } = item;
-      return product.id === id ?
-        { ...item, coupon: { type, discount: +discount } } :
-        item;
-    })
-    setWishlist(changed);
+    setNewWishList(id, { ...item, coupon: { type, discount: +discount } });
   }
 
   const removeWishlist = id => {
@@ -68,7 +58,7 @@ const WishItem = ({ item, coupons }) => {
         className="WishItem__checkbox"
         type="checkbox"
         checked={selected}
-        onChange={toggleSelected.bind(this, id)}
+        onChange={toggleSelected.bind(this, id, item)}
       />
       <img src={coverImage} alt={title} />
       <div className="WishItem__mid">
@@ -79,11 +69,11 @@ const WishItem = ({ item, coupons }) => {
         className="WishItem__count"
         type="number"
         value={quantity}
-        onChange={handleChangeCount.bind(this, id)}
+        onChange={handleChangeCount.bind(this, id, item)}
       />
       <select
         className="WishItem__select"
-        onChange={handleChangeCoupon.bind(this, id)}
+        onChange={handleChangeCoupon.bind(this, id, item)}
       >
         {availableCoupon === false ?
           <option>쿠폰을 사용할 수 없는 제품이에요 ㅠㅠ</option> :

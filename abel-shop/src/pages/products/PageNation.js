@@ -12,13 +12,21 @@ const PageNation = ({ handleChangePage, trimNumber, items }) => {
 
   const onChangePage = i => {
     handleChangePage(items.slice(i * trimNumber, i * trimNumber + trimNumber))
-    setCurPage(i+1);
+    setCurPage(i + 1);
   }
 
   const renderPageLi = () => {
     return new Array(pageNum)
       .fill(null)
-      .map((_, i) => <li style={{ color: `${curPage == i+1 ? 'red' : ''}`}} onClick={onChangePage.bind(this, i)}>{i + 1}</li>)
+      .map((_, i) => {
+        return (
+          <li
+            style={{ color: `${curPage == i + 1 ? 'red' : ''}` }}
+            onClick={onChangePage.bind(this, i)
+            }>
+            {i + 1}
+          </li>)
+      })
   }
 
 
