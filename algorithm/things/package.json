@@ -1,0 +1,15 @@
+{
+  "name": "things",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Greatest common divisor least common multiple.js",
+  "scripts": {
+    "jest": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^24.8.0"
+  }
+}
