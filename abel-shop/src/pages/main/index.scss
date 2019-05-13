@@ -1,0 +1,22 @@
+.Main {
+  width: 400px;
+  height: 450px;
+  margin: 100px auto;
+  background: #027dbf;
+  text-align: center;
+  h1 {
+    font-size: 30px;
+    color: #f6f6f6;
+    padding: 30px 0 70px;
+  }
+  a {
+    display: block;
+    width: 250px;
+    height: 100px;
+    margin: 0 auto 50px;
+    line-height: 100px;
+    text-decoration: none;
+    color: #f6f6f6;
+    background: #065a87;
+  }
+}

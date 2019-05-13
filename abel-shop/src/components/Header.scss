@@ -1,0 +1,25 @@
+.Header {
+  position: fixed;
+  height: 80px;
+  width: 100%;
+  background: #027dbf;
+  z-index: 100;
+  a {
+    text-decoration: none;
+    color: #f6f6f6;
+    text-align: center;
+  }
+  h1 {
+    height: 55px;
+    line-height: 55px;
+    font-weight: 600;
+    font-size: 18px;
+  }
+  ul {
+    display: flex;
+    justify-content: center;
+    li {
+      margin: 0 10px;
+    }
+  }
+}

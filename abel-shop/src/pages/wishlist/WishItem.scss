@@ -1,0 +1,62 @@
+.WishItem {
+  display: flex;
+  position: relative;
+  padding: 30px 0 0;
+  img {
+    width: 180px;
+    height: 120px;
+  }
+  &__checkbox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 120px;
+    width: 30px;
+    margin: 0;
+  }
+  &__mid {
+    margin: 5px 0 0 20px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    &__title {
+      width: 200px;
+      color: #000;
+      font-size: 15px;
+      font-weight: 500;
+    }
+    &__price {
+      font-size: 20px;
+      font-weight: 400;
+      margin: 0 0 15px;
+      span {
+        margin: 0 0 0 3px;
+        font-size: 13px;
+      }
+    }
+  }
+  &__count {
+    box-sizing: border-box;
+    width: 80px;
+    height: 44px;
+    padding: 0px;
+    margin: 0 0 0 5px;
+    border: 1px solid #797b80;
+    border-radius: 5px;
+    font-size: 15px;
+    text-align: center;
+  }
+  &__select {
+    width: 80px;
+    height: 44px;
+    margin: 0 0 0 5px;
+    border: 1px solid #797b80;
+    background: none;
+  }
+  &__button-wrapper {
+    position: absolute;
+    right: 10px;
+    bottom: 0px;
+  }
+}

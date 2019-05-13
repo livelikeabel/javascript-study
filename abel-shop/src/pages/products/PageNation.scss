@@ -1,0 +1,18 @@
+.PageNation {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+
+  li {
+    font-size: 20px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+  }
+}
+
+.active {
+  color: #027dbf;
+}

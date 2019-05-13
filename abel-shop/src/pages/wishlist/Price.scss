@@ -1,0 +1,45 @@
+.Price {
+  box-sizing: border-box;
+  width: 300px;
+  height: 300px;
+  padding: 10px;
+  margin: 90px auto 0;
+  background: #ebebeb;
+  &__title {
+    padding: 10px 10px 18px;
+    font-weight: 500;
+    font-size: 15px;
+  }
+  &__container {
+    padding: 0 10px;
+    background: #fff;
+    height: 237px;
+  }
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    padding: 18px 0 18px 10px;
+    border-bottom: 1px solid #ebebeb;
+    span {
+      font-size: 12px;
+      padding: 0 15px 0 0;
+    }
+    &__discount {
+      color: #c53622;
+    }
+  }
+  &__last-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 25px 0 25px 10px;
+    border-bottom: 1px solid #ebebeb;
+    line-height: 50px;
+    &__price {
+      font-size: 25px;
+    }
+    span {
+      font-size: 15px;
+      padding: 0 15px 0 0;
+    }
+  }
+}
