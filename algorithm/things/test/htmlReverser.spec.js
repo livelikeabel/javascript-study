@@ -9,3 +9,8 @@ test('<h1>hello<span>abel</span>world!</h1>를 텍스트만 리버스 하기', (
   expect(htmlReverser('<h1>hello<span>abel</span>world!</h1>'))
     .toBe('<h1>olleh<span>leba</span>!dlrow</h1>');
 });
+
+test('<h1>hello<span>abel</span>world!<p>every body</p>haha</h1>를 텍스트만 리버스 하기', () => {
+  expect(htmlReverser('<h1>hello<span>abel</span>world!<p>every body</p>haha</h1>'))
+    .toBe('<h1>olleh<span>leba</span>!dlrow<p>ydob yreve</p>ahah</h1>');
+});
