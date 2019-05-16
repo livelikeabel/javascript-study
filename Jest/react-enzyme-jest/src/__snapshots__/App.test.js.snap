@@ -19,14 +19,6 @@ exports[`<App /> matches the snapshot 1`] = `
       </code>
        and save to reload.
     </p>
-    <a
-      className="App-link"
-      href="https://reactjs.org"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      Learn React
-    </a>
     <h1>
       Welcome to React
     </h1>
