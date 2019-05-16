@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-const Test = () => <div>Testing</div>
+const Test = ({text}) => <div>{text}</div>
 
 function App() {
   return (
@@ -20,12 +20,13 @@ function App() {
         >
           Learn React
         </a>
+        <h1>Welcome to React</h1>
       </header>
-      <Test />
+      <Test text="Some title"/>
       <ul className="hi">
         <li>hi</li>
         <li>d</li>
-        <li>d</li>
+        <li>2d</li>
       </ul>
     </div>
   );
