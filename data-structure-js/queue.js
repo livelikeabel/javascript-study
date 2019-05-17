@@ -23,13 +23,15 @@ function createQueue() {
   }
 }
 
+module.exports = { createQueue }
 
-const q = createQueue()
-console.log(q.isEmpty())
+// const q = createQueue()
+// console.log(q.isEmpty())
 
-q.enqueue('Make an egghead lesson')
-q.enqueue('Help others learn')
-q.enqueue('Be happy')
+// q.enqueue('Make an egghead lesson')
+// q.enqueue('Help others learn')
+// q.enqueue('Be happy')
 
-q.dequeue()
-console.log(q.peek())
+// q.dequeue()
+// console.log(q.peek())
+
