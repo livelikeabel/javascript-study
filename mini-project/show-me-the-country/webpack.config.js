@@ -7,7 +7,8 @@ module.exports = {
   mode: 'development',
   entry: './src/index.js',
   output: {
-    filename: 'bundle.[hase].js'
+    filename: 'bundle.[hase].js',
+    publicPath: '/'
   },
   devtool: 'inline-source-map',
   module: {
@@ -35,6 +36,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: 'public/index.html'
     })
@@ -43,7 +45,8 @@ module.exports = {
     host: 'localhost',
     port: port,
     historyApiFallback: true,
-    open: true
+    open: true,
+    hot: true
   }
 };
 
