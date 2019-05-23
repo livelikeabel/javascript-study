@@ -9,7 +9,7 @@ const Tr = styled.tr`
 `;
 const Td = styled.th`
   padding: 0 10px;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: ${props => props.bold ? props.bold : '400'};
   color: #343a40;
 `
