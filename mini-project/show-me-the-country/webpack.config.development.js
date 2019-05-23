@@ -7,7 +7,7 @@ module.exports = {
   mode: 'development',
   entry: './src/index.js',
   output: {
-    filename: 'bundle.[hase].js',
+    filename: 'bundle.[hash].js',
     publicPath: '/'
   },
   devtool: 'inline-source-map',
