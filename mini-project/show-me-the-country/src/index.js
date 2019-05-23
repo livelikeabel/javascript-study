@@ -7,7 +7,7 @@ import { createEpicMiddleware } from 'redux-observable';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './ducks';
 import rootEpic from './epics';
-import App from './App.jsx';
+import App from './app/App.jsx';
 
 const epicMiddleware = createEpicMiddleware();
 
@@ -30,4 +30,4 @@ const render = Component => ReactDOM.render(
 
 render(App);
 
-if (module.hot) module.hot.accept('./App.jsx', () => render(App));
+if (module.hot) module.hot.accept('./app/App.jsx', () => render(App));

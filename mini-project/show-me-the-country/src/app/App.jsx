@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { reqCountries } from './ducks/country';
+import { reqCountries } from '../ducks/country';
+import Country from './Country.jsx';
+import './reset.css';
 
 class App extends Component {
   componentDidMount() {
@@ -8,15 +10,16 @@ class App extends Component {
   }
 
   render() {
+    const { countries } = this.props;
     return (
-      <div>
-        appasfsasdfasdfasdfasfasdfasdfasfdasdfasdf
-      </div>
+      <Country countries={countries} />
     )
   }
 }
 
-const mapStateToProps = (state, props) => ({});
+const mapStateToProps = ({ country: { countries } }) => ({
+  countries
+});
 const mapDispatchToProps = { reqCountries };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
