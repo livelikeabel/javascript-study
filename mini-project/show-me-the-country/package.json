@@ -3,11 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "start": "webpack-dev-server"
+  },
   "dependencies": {
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-prop-types": "^0.4.0",
-    "react-router-dom": "^5.0.0"
+    "react-prop-types": "^0.4.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
