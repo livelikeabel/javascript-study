@@ -1,17 +1,22 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reqCountries } from './ducks/country';
 
-function App({reqCountries}) {
-  return (
-    <div>
-      appasfsasdfasdfasdfasfasdfasdfasfdasdfasdf
-      <button onClick={reqCountries}>hi</button>
-    </div>
-  )
+class App extends Component {
+  componentDidMount() {
+    this.props.reqCountries();
+  }
+
+  render() {
+    return (
+      <div>
+        appasfsasdfasdfasdfasfasdfasdfasfdasdfasdf
+      </div>
+    )
+  }
 }
 
 const mapStateToProps = (state, props) => ({});
-const mapDispatchToProps = {reqCountries};
+const mapDispatchToProps = { reqCountries };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
