@@ -32,19 +32,30 @@ const ButtonWrapper = styled.button`
 `
 
 class Search extends Component {
+  state = {
+    filter: 'name'
+  }
 
-  handleSearch (value) {
-    const filter='callingCodes'
-    this.props.searchCountries(value, filter);
+  handleSearch = value => {
+    this.props.searchCountries(value, this.state.filter);
+  }
+
+  handleSelectChange = e => {
+    this.setState({ filter: e.target.value });
   }
 
   render() {
     return (
       <SearchWrapper>
-        <SelectWrapper name="" id="">
-          <option value="filter">Filter</option>
+        <SelectWrapper onChange={this.handleSelectChange}>
+          <option value="name">Filter</option>
+          <option value="callingCodes">CALLING CODES</option>
+          <option value="name">NAME</option>
+          <option value="alpha2Code">ALPHA 2 CODE</option>
+          <option value="capital">CAPITAL</option>
+          <option value="region">REGION</option>
         </SelectWrapper>
-        <SearchInput onSearch={this.handleSearch.bind(this)} />
+        <SearchInput onSearch={this.handleSearch} />
         <ButtonWrapper>New Item</ButtonWrapper>
       </SearchWrapper>
     )
@@ -52,6 +63,6 @@ class Search extends Component {
 }
 
 const mapStateToProps = () => ({});
-const mapDispatchToProps = {searchCountries};
+const mapDispatchToProps = { searchCountries };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search)
