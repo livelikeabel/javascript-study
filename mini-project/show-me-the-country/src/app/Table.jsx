@@ -1,9 +1,9 @@
 import React from 'react'
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types'
 import styled from 'styled-components';
 import TableRow from './TableRow.jsx';
-import { sortCountries, CALLING_CODES } from '../ducks/country';
+import { sortCountries, CALLING_CODES, NAME, ALPHA2CODE, CAPITAL, REGION } from '../ducks/country';
 
 
 const TableUI = styled.table`
@@ -44,10 +44,30 @@ const Table = ({ countries, sortCountries, direction }) => {
               direction={direction[CALLING_CODES]}
             />
           </Th>
-          <Th>NAME <Arrow direction={'up'} /></Th>
-          <Th>ALPHA 2 CODE <Arrow /></Th>
-          <Th>CAPITAL <Arrow /></Th>
-          <Th>REGION <Arrow /></Th>
+          <Th>
+            NAME
+            <Arrow
+              onClick={sortCountries.bind(this, NAME, direction[NAME])}
+              direction={direction[NAME]} />
+          </Th>
+          <Th>
+            ALPHA 2 CODE
+              <Arrow
+              onClick={sortCountries.bind(this, ALPHA2CODE, direction[ALPHA2CODE])}
+              direction={direction[ALPHA2CODE]} />
+          </Th>
+          <Th>
+            CAPITAL
+              <Arrow
+              onClick={sortCountries.bind(this, CAPITAL, direction[CAPITAL])}
+              direction={direction[CAPITAL]} />
+          </Th>
+          <Th>
+          REGION
+              <Arrow
+              onClick={sortCountries.bind(this, REGION, direction[REGION])}
+              direction={direction[REGION]} />
+          </Th>
         </Tr>
       </thead>
       <tbody>
@@ -61,8 +81,8 @@ Table.propTypes = {
 
 }
 
-const mapStateToProps = ({country: {direction}}) => ({direction});
-const mapDispatchToProps = {sortCountries};
+const mapStateToProps = ({ country: { direction } }) => ({ direction });
+const mapDispatchToProps = { sortCountries };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
 

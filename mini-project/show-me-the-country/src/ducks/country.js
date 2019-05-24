@@ -1,3 +1,5 @@
+import { sortByNumber, sortByString } from '../utils';
+
 export const REQ_COUNTRIES = 'REQ_COUNTRIES';
 export const RES_COUNTRIES = 'RES_COUNTRIES';
 export const SORT_COUNTRIES = 'SORT_COUNTRIES';
@@ -6,12 +8,46 @@ export const reqCountries = () => ({ type: REQ_COUNTRIES });
 export const resCountries = countries => ({ type: RES_COUNTRIES, countries });
 export const sortCountries = (field, direction) => ({ type: SORT_COUNTRIES, field, direction });
 
-export const CALLING_CODES = 'CALLING_CODES';
+export const CALLING_CODES = 'callingCodes';
+export const NAME = 'name';
+export const ALPHA2CODE = 'alpha2Code';
+export const CAPITAL = 'capital';
+export const REGION = 'region';
 
 const INITIAL_STATE = {
   countries: [],
   direction: {
     CALLING_CODES: 'down',
+    name: 'down',
+    alpha2Code: 'down',
+    CAPITAL: 'down',
+    REGION: 'down'
+  }
+}
+
+function reduceCountries(state = {
+  countries: [],
+  direction: INITIAL_STATE.direction
+}, action) {
+  const { direction, field } = action;
+  const { countries } = state;
+  switch (action.field) {
+    case CALLING_CODES: {
+      return {
+        countries: [...sortByNumber(countries, field, direction)],
+        direction: { [field]: direction === 'up' ? 'down' : 'up' }
+      };
+    }
+    case NAME:
+    case ALPHA2CODE:
+    case CAPITAL:
+    case REGION:
+      return {
+        countries: [...sortByString(countries, field, direction)],
+        direction: { [field]: direction === 'up' ? 'down' : 'up' }
+      };
+    default:
+      return state;
   }
 }
 
@@ -19,23 +55,11 @@ export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case RES_COUNTRIES: {
       const { countries } = action
-      return { ...state, countries };
+      return { ...state, countries, action };
     }
     case SORT_COUNTRIES: {
-      const { field, direction } = action;
-      const { countries } = state;
-      console.log(field, direction)
-      return {
-        ...state,
-        countries: [
-          ...countries.sort(
-            (a, b) => direction === 'up'
-              ? a.callingCodes[0] - b.callingCodes[0]
-              : b.callingCodes[0] - a.callingCodes[0]
-          )
-        ],
-        direction: {CALLING_CODES: direction === 'up' ? 'down' : 'up'}
-      };
+      const { countries, direction } = state;
+      return { ...state, ...reduceCountries({ countries, direction }, action) }
     }
     default:
       return state;
