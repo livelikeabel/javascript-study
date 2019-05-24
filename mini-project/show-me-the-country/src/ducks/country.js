@@ -1,9 +1,10 @@
-import { sortByNumber, sortByString, filterByValue} from '../utils';
+import { sortByNumber, sortByString, filterByValue } from '../utils';
 
 export const REQ_COUNTRIES = 'REQ_COUNTRIES';
 export const RES_COUNTRIES = 'RES_COUNTRIES';
 export const SORT_COUNTRIES = 'SORT_COUNTRIES';
 export const SEARCH_COUNTRIES = 'SEARCH_COUNTRIES';
+export const DELETE_COUNTRY = 'DELETE_COUNTRY';
 
 export const reqCountries = () => ({ type: REQ_COUNTRIES });
 export const resCountries = countries => ({ type: RES_COUNTRIES, countries });
@@ -11,6 +12,7 @@ export const sortCountries = (field, direction) => ({ type: SORT_COUNTRIES, fiel
 export const searchCountries = (value, filter) => (
   { type: SEARCH_COUNTRIES, value, filter }
 );
+export const deleteCountry = name => ({ type: DELETE_COUNTRY, name });
 
 export const CALLING_CODES = 'callingCodes';
 export const NAME = 'name';
@@ -19,6 +21,7 @@ export const CAPITAL = 'capital';
 export const REGION = 'region';
 
 const INITIAL_STATE = {
+  allCountries: [],
   countries: [],
   direction: {
     CALLING_CODES: 'down',
@@ -30,7 +33,6 @@ const INITIAL_STATE = {
 }
 
 function reduceCountries(state = {
-  allCountries: [],
   countries: [],
   direction: INITIAL_STATE.direction
 }, action) {
@@ -70,8 +72,19 @@ export default (state = INITIAL_STATE, action) => {
       const { value, filter } = action;
       const { allCountries } = state;
       return {
-        ...state, countries: filterByValue(allCountries, value, filter)
+        ...state,
+        countries: filterByValue(allCountries, value, filter)
       }
+    }
+    case DELETE_COUNTRY: {
+      const { name } = action;
+      const { allCountries, countries } = state;
+      const byName = contry => contry.name !== name;
+      return {
+        ...state,
+        allCountries: allCountries.filter(byName),
+        countries: countries.filter(byName)
+      };
     }
     default:
       return state;

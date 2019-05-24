@@ -4,11 +4,14 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components';
 import TableRow from './TableRow.jsx';
 import Loading from './Loading.jsx';
-import { sortCountries, CALLING_CODES, NAME, ALPHA2CODE, CAPITAL, REGION } from '../ducks/country';
+import { 
+  sortCountries, deleteCountry,
+  CALLING_CODES, NAME, ALPHA2CODE, CAPITAL, REGION
+} from '../ducks/country';
 
 
 const TableUI = styled.table`
-  width 900px;
+  width 1000px;
   margin: 0 auto;
 `;
 const Tr = styled.tr`
@@ -43,6 +46,10 @@ class Table extends Component {
     window.removeEventListener("scroll", this.handleScroll);
   }
 
+  handleDeleteCountry = name => {
+    this.props.deleteCountry(name);
+  }
+
   handleScroll = () => {
     const { innerHeight } = window;
     const { scrollHeight } = document.body;
@@ -63,7 +70,7 @@ class Table extends Component {
     this.setState({ loading: true })
     setTimeout(() => {
       this.setState({ showingRow: this.state.showingRow + 20, loading: false })
-    }, 750);
+    }, 500);
   }
 
   render() {
@@ -108,7 +115,9 @@ class Table extends Component {
             </Tr>
           </thead>
           <tbody>
-            {countries.slice(0, showingRow).map((country, i) => <TableRow {...country} key={i} />)}
+            {countries.slice(0, showingRow).map((country, i) => (
+              <TableRow {...country} onDeleteCountry={this.handleDeleteCountry} key={i} />
+            ))}
           </tbody>
         </TableUI>
         <Loading isLoading={loading} />
@@ -122,7 +131,7 @@ Table.propTypes = {
 }
 
 const mapStateToProps = ({ country: { direction } }) => ({ direction });
-const mapDispatchToProps = { sortCountries };
+const mapDispatchToProps = { sortCountries, deleteCountry };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);
 

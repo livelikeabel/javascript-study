@@ -13,8 +13,13 @@ const Td = styled.th`
   font-weight: ${props => props.bold ? props.bold : '400'};
   color: #343a40;
 `
+const DeleteBtn = styled.button`
+  background: #ffe3e3;
+  color: #e03131;
+  border-radius: 5px;
+`
 
-function TableRow({ alpha2Code, callingCodes, capital, name, region }) {
+function TableRow({ alpha2Code, callingCodes, capital, name, region, onDeleteCountry }) {
   return (
     <Tr>
       <Td>{callingCodes[0]}</Td>
@@ -22,6 +27,9 @@ function TableRow({ alpha2Code, callingCodes, capital, name, region }) {
       <Td>{alpha2Code}</Td>
       <Td>{capital}</Td>
       <Td>{region}</Td>
+      <Td>
+        <DeleteBtn onClick={onDeleteCountry.bind(this, name)}>delete</DeleteBtn>
+      </Td>
     </Tr>
   )
 }
