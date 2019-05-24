@@ -3,10 +3,12 @@ import { sortByNumber, sortByString } from '../utils';
 export const REQ_COUNTRIES = 'REQ_COUNTRIES';
 export const RES_COUNTRIES = 'RES_COUNTRIES';
 export const SORT_COUNTRIES = 'SORT_COUNTRIES';
+export const SEARCH_COUNTRIES = 'SEARCH_COUNTRIES';
 
 export const reqCountries = () => ({ type: REQ_COUNTRIES });
 export const resCountries = countries => ({ type: RES_COUNTRIES, countries });
 export const sortCountries = (field, direction) => ({ type: SORT_COUNTRIES, field, direction });
+export const searchCountries = value => ({ type: SEARCH_COUNTRIES, value });
 
 export const CALLING_CODES = 'callingCodes';
 export const NAME = 'name';
@@ -26,6 +28,7 @@ const INITIAL_STATE = {
 }
 
 function reduceCountries(state = {
+  allCountries: [],
   countries: [],
   direction: INITIAL_STATE.direction
 }, action) {
@@ -55,11 +58,21 @@ export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case RES_COUNTRIES: {
       const { countries } = action
-      return { ...state, countries, action };
+      return { ...state, allCountries: countries, countries, action };
     }
     case SORT_COUNTRIES: {
       const { countries, direction } = state;
       return { ...state, ...reduceCountries({ countries, direction }, action) }
+    }
+    case SEARCH_COUNTRIES: {
+      const { value } = action;
+      const { allCountries } = state;
+      return {
+        ...state,
+        countries: allCountries.filter(country => {
+          return country.name.toUpperCase().includes(value.toUpperCase())
+        })
+      }
     }
     default:
       return state;

@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import SearchInput from './SearchInput.jsx';
+import { connect } from 'react-redux';
+import { searchCountries } from '../ducks/country';
 
 const SearchWrapper = styled.div`
   display: flex;
@@ -16,18 +19,7 @@ const SelectWrapper = styled.select`
   font-size: 25px;
   color: #495057;
 `
-const InputWrapper = styled.input`
-  flex-grow: 1;
-  box-sizing: border-box;
-  height: 100%;
-  width: 150px;
-  padding: 0 0 0 15px;
-  background: none;
-  border: none;
-  border-left: 1.2px solid #495057;
-  font-size: 25px;
-  color: #495057;
-`
+
 const ButtonWrapper = styled.button`
   right: 0px;
   height: 100%;
@@ -39,8 +31,11 @@ const ButtonWrapper = styled.button`
   color: #f8f9fa;
 `
 
-export default class Search extends Component {
+class Search extends Component {
 
+  handleSearch (value) {
+    this.props.searchCountries(value);
+  }
 
   render() {
     return (
@@ -48,9 +43,14 @@ export default class Search extends Component {
         <SelectWrapper name="" id="">
           <option value="filter">Filter</option>
         </SelectWrapper>
-        <InputWrapper type="text" placeholder="Search"/>
+        <SearchInput onSearch={this.handleSearch.bind(this)} />
         <ButtonWrapper>New Item</ButtonWrapper>
       </SearchWrapper>
     )
   }
 }
+
+const mapStateToProps = () => ({});
+const mapDispatchToProps = {searchCountries};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search)
