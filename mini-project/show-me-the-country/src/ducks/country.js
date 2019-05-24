@@ -1,4 +1,4 @@
-import { sortByNumber, sortByString } from '../utils';
+import { sortByNumber, sortByString, filterByValue} from '../utils';
 
 export const REQ_COUNTRIES = 'REQ_COUNTRIES';
 export const RES_COUNTRIES = 'RES_COUNTRIES';
@@ -8,7 +8,9 @@ export const SEARCH_COUNTRIES = 'SEARCH_COUNTRIES';
 export const reqCountries = () => ({ type: REQ_COUNTRIES });
 export const resCountries = countries => ({ type: RES_COUNTRIES, countries });
 export const sortCountries = (field, direction) => ({ type: SORT_COUNTRIES, field, direction });
-export const searchCountries = value => ({ type: SEARCH_COUNTRIES, value });
+export const searchCountries = (value, filter) => (
+  { type: SEARCH_COUNTRIES, value, filter }
+);
 
 export const CALLING_CODES = 'callingCodes';
 export const NAME = 'name';
@@ -65,13 +67,10 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, ...reduceCountries({ countries, direction }, action) }
     }
     case SEARCH_COUNTRIES: {
-      const { value } = action;
+      const { value, filter } = action;
       const { allCountries } = state;
       return {
-        ...state,
-        countries: allCountries.filter(country => {
-          return country.name.toUpperCase().includes(value.toUpperCase())
-        })
+        ...state, countries: filterByValue(allCountries, value, filter)
       }
     }
     default:

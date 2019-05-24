@@ -34,7 +34,8 @@ const ButtonWrapper = styled.button`
 class Search extends Component {
 
   handleSearch (value) {
-    this.props.searchCountries(value);
+    const filter='callingCodes'
+    this.props.searchCountries(value, filter);
   }
 
   render() {

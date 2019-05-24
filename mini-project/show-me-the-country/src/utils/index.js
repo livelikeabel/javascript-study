@@ -20,3 +20,19 @@ export const sortByNumber = (countries, field, direction) => {
       : b[field][0] - a[field][0]
   )
 }
+
+export const filterByValue = (allCountries, value, filter) => {
+  return allCountries.reduce((acc, country) => {
+    const upValue = value.toUpperCase();
+    const upCountry = filter === 'callingCodes'
+      ? country[filter][0].toUpperCase()
+      : country[filter].toUpperCase()
+
+    if (upCountry.includes(upValue)) {
+      upCountry.substring(0, upValue.length) === upValue
+        ? acc.unshift(country)
+        : acc.push(country)
+    }
+    return acc;
+  }, [])
+}
