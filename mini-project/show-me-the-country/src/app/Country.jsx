@@ -1,5 +1,6 @@
 import React from 'react';
 import Table from './Table.jsx';
+import Search from './Search.jsx';
 import styled from 'styled-components';
 
 const CountryUI = styled.div`
@@ -8,7 +9,6 @@ const CountryUI = styled.div`
 const ContentWrapper = styled.div`
   width: 1000px;
   margin: 0 auto;
-  // background: red;
 `
 const Header = styled.header`
   height: 60px;
@@ -24,6 +24,7 @@ function Country({ countries }) {
     <CountryUI>
       <Header>Show me the country</Header>
       <ContentWrapper>
+        <Search />
         <Table countries={countries} />
       </ContentWrapper>
     </CountryUI>
