@@ -19,14 +19,29 @@ const ModalWrapper = styled.div`
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 `;
 const Form = styled.form`
+  box-sizing: border-box;
+  padding: 40px 0 0;
   width: 600px;
   height: 500px;
   border-radius: 5px;
   background: #f6f6f6;
 `;
+const Input = styled.input`
+  display: block;
+  height: 30px;
+  width: 400px;
+  margin: 20px auto;
+  border: none;
+  border-bottom: 1.5px solid #51cf66;
+  background: none;
+  font-size: 20px;
+`;
+
 const ButtonWrapper = styled.button`
+  display: block;
   height: 50px;
   width: 150px;
+  margin: 50px auto 0;
   border: none;
   border-radius: 10px;
   background: #51cf66;
@@ -34,8 +49,10 @@ const ButtonWrapper = styled.button`
   color: #f8f9fa;
 `
 const CloseBtn = styled.button`
+  display: block;
   height: 30px;
   width: 100px;
+  margin: 20px auto 0;
   border: none;
   border-radius: 10px;
   background: #ffa8a8;
@@ -71,11 +88,11 @@ function NewItemModal({ createCounrty, showModal, modalVisible}) {
   return (
     <ModalWrapper>
       <Form>
-        <input ref={callingCodesRef} placeholder="calling codes" type="text" />
-        <input ref={nameRef} placeholder="name" type="text" />
-        <input ref={alpha2CodeRef} placeholder="alpha 2 code" type="text" />
-        <input ref={capitalRef} placeholder="capital" type="text" />
-        <input ref={regionRef} placeholder="region" type="text" />
+        <Input ref={callingCodesRef} placeholder="calling codes" type="text" />
+        <Input ref={nameRef} placeholder="name" type="text" />
+        <Input ref={alpha2CodeRef} placeholder="alpha 2 code" type="text" />
+        <Input ref={capitalRef} placeholder="capital" type="text" />
+        <Input ref={regionRef} placeholder="region" type="text" />
         <ButtonWrapper onClick={addCountryData}>Create</ButtonWrapper>
         <CloseBtn onClick={closeModal}>close</CloseBtn>
       </Form>
