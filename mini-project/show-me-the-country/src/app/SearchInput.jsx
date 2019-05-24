@@ -22,7 +22,6 @@ class SearchInput extends Component {
   }
 
   handleChange () {
-    console.log(this.inputRef.current.value)
     this.props.onSearch(this.inputRef.current.value)
   }
 

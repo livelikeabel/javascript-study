@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reqCountries } from '../ducks/country';
 import Country from './Country.jsx';
+import NewItemModal from './NewItemModal.jsx';
 import './reset.css';
 
 class App extends Component {
@@ -12,7 +13,10 @@ class App extends Component {
   render() {
     const { countries } = this.props;
     return (
-      <Country countries={countries} />
+      <>
+        <Country countries={countries} />
+        <NewItemModal />
+      </>
     )
   }
 }

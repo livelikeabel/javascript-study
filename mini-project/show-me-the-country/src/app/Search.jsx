@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import SearchInput from './SearchInput.jsx';
 import { connect } from 'react-redux';
-import { searchCountries } from '../ducks/country';
+import { searchCountries, showModal } from '../ducks/country';
 
 const SearchWrapper = styled.div`
   display: flex;
@@ -45,6 +45,7 @@ class Search extends Component {
   }
 
   render() {
+    const {showModal} = this.props;
     return (
       <SearchWrapper>
         <SelectWrapper onChange={this.handleSelectChange}>
@@ -56,13 +57,13 @@ class Search extends Component {
           <option value="region">REGION</option>
         </SelectWrapper>
         <SearchInput onSearch={this.handleSearch} />
-        <ButtonWrapper>New Item</ButtonWrapper>
+        <ButtonWrapper onClick={showModal.bind(this, true)}>New Item</ButtonWrapper>
       </SearchWrapper>
     )
   }
 }
 
 const mapStateToProps = () => ({});
-const mapDispatchToProps = { searchCountries };
+const mapDispatchToProps = { searchCountries, showModal };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search)

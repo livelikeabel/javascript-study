@@ -5,6 +5,8 @@ export const RES_COUNTRIES = 'RES_COUNTRIES';
 export const SORT_COUNTRIES = 'SORT_COUNTRIES';
 export const SEARCH_COUNTRIES = 'SEARCH_COUNTRIES';
 export const DELETE_COUNTRY = 'DELETE_COUNTRY';
+export const CREATE_COUNTRY = 'CREATE_COUNTRY';
+export const SHOW_MODAL = 'SHOW_MODAL';
 
 export const reqCountries = () => ({ type: REQ_COUNTRIES });
 export const resCountries = countries => ({ type: RES_COUNTRIES, countries });
@@ -13,6 +15,8 @@ export const searchCountries = (value, filter) => (
   { type: SEARCH_COUNTRIES, value, filter }
 );
 export const deleteCountry = name => ({ type: DELETE_COUNTRY, name });
+export const createCounrty = newCountry => ({ type: CREATE_COUNTRY, newCountry });
+export const showModal = bool => ({ type: SHOW_MODAL, bool });
 
 export const CALLING_CODES = 'callingCodes';
 export const NAME = 'name';
@@ -29,7 +33,8 @@ const INITIAL_STATE = {
     alpha2Code: 'down',
     CAPITAL: 'down',
     REGION: 'down'
-  }
+  },
+  modalVisible: false
 }
 
 function reduceCountries(state = {
@@ -85,6 +90,19 @@ export default (state = INITIAL_STATE, action) => {
         allCountries: allCountries.filter(byName),
         countries: countries.filter(byName)
       };
+    }
+    case CREATE_COUNTRY: {
+      const { newCountry } = action;
+      const { allCountries, countries } = state;
+      return {
+        ...state,
+        allCountries: [newCountry, ...allCountries],
+        countries: [newCountry, ...countries]
+      }
+    }
+    case SHOW_MODAL: {
+      const { bool } = action;
+      return { ...state, modalVisible: bool };
     }
     default:
       return state;
