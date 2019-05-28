@@ -32,26 +32,29 @@ function findIsland(str) {
   console.log(str.split('\n').map(row => row.split('')))
   const map = str.split('\n').map(row => row.split(''))
   /* 1. 하나씩 돈다. o
-  *  2. 0 이면 상하 좌우를 확인한다.
+  *  2. 0 이면 우하를 확인한다.
   *  3. 우하에 0이 없으면 섬++ , 섬 지우기
   *  4. 우하에 0이 있으면 2번으로 돌아가기
   *  5. 다음 loop
   */
+  let num;
+  let flag = false
   map.forEach((row, y, arr) => {
     row.forEach((v, x, _arr) => {
       const curr = map[y][x];
-      if (curr == 0) {
-
+      if (curr == 0) {        
         // 오른쪽에 있을때
         if (map[y][x + 1] == 0) {
-
-
+          flag = true;
+          
           //아래쪽
         } else if (map[y + 1][x] == 0) {
-          
+
         } else {
           // 섬 ++
+          num ++;
         }
+        v = '.';
       }
     })
   })
