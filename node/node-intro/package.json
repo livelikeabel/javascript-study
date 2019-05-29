@@ -1,5 +1,5 @@
 {
-  "name": "intro",
+  "name": "sayhelloworld",
   "version": "1.0.0",
   "description": "",
   "main": "circle.js",
@@ -10,7 +10,7 @@
     "mocha": "^6.1.4"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "",
   "license": "ISC"
