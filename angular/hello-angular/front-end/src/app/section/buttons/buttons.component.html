@@ -1,3 +1,7 @@
-<p>
-  buttons works!
-</p>
+<section>
+  {{ count }}
+
+  <button class="start-btn" (click)="onStartCount($event)">시작</button>
+  <button class="stop-btn" (click)="onStopCount($event)">멈춤</button>
+  <button class="reset-btn">리셋</button>
+</section>
