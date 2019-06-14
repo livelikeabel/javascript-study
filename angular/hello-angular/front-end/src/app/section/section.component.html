@@ -2,7 +2,7 @@
   section works!
 
   <div class="display">
-    <app-time-display></app-time-display>
-    <app-buttons></app-buttons>
+    <app-time-display [inputData]="present"></app-time-display>
+    <app-buttons (clickEvent)="startTime($event)"></app-buttons>
   </div>
 </section>
