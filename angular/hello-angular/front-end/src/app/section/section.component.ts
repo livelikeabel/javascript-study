@@ -11,6 +11,7 @@ export class SectionComponent implements OnInit {
   constructor() {}
 
   startTime($event) {
+    console.log("hihi");
     this.present = $event;
   }
 

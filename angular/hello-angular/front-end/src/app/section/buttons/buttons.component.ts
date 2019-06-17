@@ -13,15 +13,8 @@ export class ButtonsComponent implements OnInit {
 
   constructor() {}
 
-  onStartCount($event: MouseEvent) {
-    // this.count++;
-    // this.clear = setInterval(() => this.count++, 1000);
-    // this.clickEvent.emit(10);
-    this.clickEvent.emit("change!!");
-  }
-
-  onStopCount($event: MouseEvent) {
-    clearInterval(this.clear);
+  executeButton(commend) {
+    this.clickEvent.emit(commend);
   }
 
   ngOnInit() {}

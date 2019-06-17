@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, SimpleChanges } from "@angular/core";
 
 @Component({
   selector: "app-time-display",
@@ -8,18 +8,47 @@ import { Component, OnInit, Input } from "@angular/core";
 export class TimeDisplayComponent implements OnInit {
   @Input() inputData: string;
 
-  time = 1;
+  min: number = 0;
+  sec: number = 0;
+  ms: number = 0;
 
-  constructor() {
-    console.log(this.inputData);
-    // setInterval(() => {
-    //   this.time++;
-    // }, 1000);
+  timeInterval;
+
+  constructor() {}
+
+  timeStart() {
+    this.timeInterval = setInterval(() => {
+      this.ms++;
+    }, 10);
+  }
+
+  timeStop() {
+    clearInterval(this.timeInterval);
+  }
+
+  timeReset() {
+    this.timeStop();
+    this.ms = 0;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
+    for (let propName in changes) {
+      if (propName == "inputData") {
+        switch (changes[propName].currentValue) {
+          case "start":
+            this.timeStart();
+            break;
+          case "stop":
+            this.timeStop();
+            break;
+          case "reset":
+            this.timeReset();
+            break;
+        }
+      }
+    }
     //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     //Add '${implements OnChanges}' to the class.
   }
+  ngOnInit() {}
 }
