@@ -17,6 +17,7 @@ export class TimeDisplayComponent implements OnInit {
   constructor() {}
 
   timeStart() {
+    this.timeStop();
     this.timeInterval = setInterval(() => {
       this.ms++;
     }, 10);
