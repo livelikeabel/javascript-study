@@ -7,6 +7,7 @@ import { Component, OnInit } from "@angular/core";
 })
 export class SectionComponent implements OnInit {
   present: string = "welcome";
+  commandText;
 
   constructor() {}
 
