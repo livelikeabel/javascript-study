@@ -5,7 +5,8 @@ import { PageToggleService } from "src/app/share/page-toggle.service";
 @Component({
   selector: "app-stopwatch",
   templateUrl: "./stopwatch.component.html",
-  styleUrls: ["./stopwatch.component.scss"]
+  styleUrls: ["./stopwatch.component.scss"],
+  providers: [PageToggleService]
 })
 export class StopwatchComponent implements OnInit {
   present: string = "welcome";
@@ -13,7 +14,7 @@ export class StopwatchComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private pageToggleService: PageToggleService
+    public pageToggleService: PageToggleService
   ) {}
 
   goClock() {
