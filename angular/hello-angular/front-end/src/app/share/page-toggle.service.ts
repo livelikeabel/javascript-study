@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 import { StopwatchComponent } from "../section/stopwatch/stopwatch.component";
 
 @Injectable({
-  providedIn: StopwatchComponent
+  providedIn: "root"
 })
 export class PageToggleService {
   routingCount = 0;

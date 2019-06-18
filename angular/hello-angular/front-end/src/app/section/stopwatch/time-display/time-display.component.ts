@@ -19,9 +19,16 @@ export class TimeDisplayComponent implements OnInit {
   constructor(public pageToggleService: PageToggleService) {}
 
   timeStart() {
-    this.pageToggleService.plusCount();
     this.timeStop();
     this.timeInterval = setInterval(() => {
+      if (this.ms >= 100) {
+        this.ms = 0;
+        this.sec++;
+      }
+      if (this.sec >= 60) {
+        this.sec = 0;
+        this.min++;
+      }
       this.ms++;
     }, 10);
   }
@@ -33,6 +40,36 @@ export class TimeDisplayComponent implements OnInit {
   timeReset() {
     this.timeStop();
     this.ms = 0;
+    this.sec = 0;
+    this.min = 0;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log("ng on changes");
+    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
+    //Add '${implements OnChanges}' to the class.
+  }
+
+  ngOnInit() {
+    console.log("ng on init");
+  }
+  ngDoCheck() {
+    console.log("ng do check");
+  }
+  ngAfterContentInit() {
+    console.log("ng after content init");
+  }
+  ngAfterContentChecked() {
+    console.log("ng after content checked");
+  }
+  ngAfterViewInit() {
+    console.log("ng after view init");
+  }
+  ngAfterViewChecked() {
+    console.log("ng after view checked");
+  }
+  ngOnDestroy() {
+    console.log("destroy!");
   }
 
   // ngOnChanges(changes: SimpleChanges): void {
@@ -54,5 +91,4 @@ export class TimeDisplayComponent implements OnInit {
   //   //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
   //   //Add '${implements OnChanges}' to the class.
   // }
-  ngOnInit() {}
 }
