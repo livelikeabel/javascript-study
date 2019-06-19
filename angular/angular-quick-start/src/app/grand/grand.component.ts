@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'app-grand',
-  templateUrl: './grand.component.html',
-  styleUrls: ['./grand.component.scss']
+  selector: "app-grand",
+  templateUrl: "./grand.component.html",
+  styleUrls: ["./grand.component.scss"]
 })
 export class GrandComponent implements OnInit {
+  age: number = 23;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  up() {
+    this.age++;
   }
-
 }

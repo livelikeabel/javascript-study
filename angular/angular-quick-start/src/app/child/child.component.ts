@@ -18,4 +18,9 @@ export class ChildComponent implements OnInit {
       this.next.emit();
     }, 2000);
   }
+
+  click(text, event) {
+    console.log(text);
+    console.log(event);
+  }
 }

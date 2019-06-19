@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 
 @Component({
   selector: "app-parent",
@@ -6,10 +6,11 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./parent.component.scss"]
 })
 export class ParentComponent implements OnInit {
-  age: number = 23;
+  @Input() age: number;
+  @Output() upAge = new EventEmitter();
 
   next() {
-    this.age++;
+    this.upAge.emit();
   }
 
   constructor() {}
