@@ -8,4 +8,8 @@ import { Component } from "@angular/core";
 export class AppComponent {
   title = "angular-quick-start";
   names = ["abel", "jake", "kim"];
+
+  custom() {
+    console.log("custom");
+  }
 }
