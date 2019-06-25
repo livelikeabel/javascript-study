@@ -9,8 +9,7 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  public getUsers(): Promise<any> {
+  public getUsers$() {
     return this.http.get('https://api.github.com/users')
-      .toPromise();
   }
 }
