@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class AppComponent {
   title = 'angular-service-basic4';
   users = [];
+  isVisible = true;
   constructor(
     @Inject('apiUrl') private apiUrl: string,
     private http: HttpClient
@@ -23,5 +24,9 @@ export class AppComponent {
         this.users = [];
         console.log(error)
       })
+  }
+
+  toggle () {
+    this.isVisible = !this.isVisible
   }
 }
