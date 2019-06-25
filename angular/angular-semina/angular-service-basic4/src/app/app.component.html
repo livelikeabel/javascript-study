@@ -1,3 +1,11 @@
+<p>{{ {'name': 'abel'} | json }}</p>
+<p>{{ ['abel', 'jcob'] | slice: 0:1 }}</p>
+<p>{{ 'mark' | uppercase }}</p>
+<p>{{ 'MARK' | lowercase }}</p>
+<p>{{ 'mark' | uppercase | lowercase }}</p>
+<h3>{{123456789012 | date: 'yyyy-MM-dd'}}</h3>
+
+
 <h1 *ngIf="isVisible">hihi</h1>
 <button (click)="toggle()">toggle</button>
 
@@ -5,3 +13,4 @@
   <h2>{{user.login}}</h2>
   <img [src]="user.avatar_url" width="200">
 </div>
+
