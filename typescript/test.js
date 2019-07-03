@@ -12,20 +12,59 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 var Parent = /** @class */ (function () {
     function Parent() {
         this.one = 1; // 외부접근가능
-        this.two = 2;
+        this.two = 2; // Parent를 상속한 객체에서만 접근할 수 있음
         this.three = 3;
+        this.one;
+        this.two;
+        this.three;
     }
     return Parent;
 }());
 var AppComponent = /** @class */ (function (_super) {
     __extends(AppComponent, _super);
     function AppComponent() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super.call(this) || this;
+        _this.one;
+        _this.two;
+        return _this;
     }
     return AppComponent;
 }(Parent));
 var kim;
 var p = new Parent();
+new AppComponent();
+var Car = /** @class */ (function () {
+    function Car(age) {
+        this.age = age;
+    }
+    return Car;
+}());
+var car = new Car(10);
+car.age;
+function Component(constructorFn) {
+    /**
+     * 클래스를 꾸며주는 로직
+     * Component, Html, Css
+     */
+    return constructorFn;
+}
+var DecoComponent = /** @class */ (function () {
+    function DecoComponent() {
+    }
+    __decorate([
+        input()
+    ], DecoComponent.prototype, "height", void 0);
+    DecoComponent = __decorate([
+        Component()
+    ], DecoComponent);
+    return DecoComponent;
+}());
