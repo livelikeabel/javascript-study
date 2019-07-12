@@ -16,7 +16,16 @@ import { LogService } from './log.service';
     BrowserModule
   ],
   providers: [
-    LogService
+    // useClass. 이름을 바꿀 수 있음
+    {
+      provide: 'log',
+      useClass: LogService
+    },
+    // useValue. value를 주입.
+    {
+      provide: 'apiUrl',
+      useValue: 'https://api.github.com/users'
+    }
   ],
   bootstrap: [AppComponent]
 })

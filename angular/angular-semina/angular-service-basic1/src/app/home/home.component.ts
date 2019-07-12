@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { LogService } from '../log.service';
+import { Component, OnInit, Inject } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -8,8 +7,11 @@ import { LogService } from '../log.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private logService: LogService) {
-    this.logService.info('home');
+  constructor(
+    @Inject('log') private logService,
+    @Inject('apiUrl') private apiUrl
+    ) {
+    this.logService.info('home' + this.apiUrl);
   }
 
   ngOnInit() {
