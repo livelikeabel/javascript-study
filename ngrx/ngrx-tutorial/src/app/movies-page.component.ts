@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 @Component({
     template: `
-        <div>
+        <div *ngFor="let movie of movies$ | async">
             {{ movie.name }}
         </div>
     `
