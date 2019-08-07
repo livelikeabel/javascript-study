@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { TodoModule, TodosModule } from './todos/todos.module';
+import { TodosModule } from './todos/todos.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
