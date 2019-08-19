@@ -1,16 +1,11 @@
 import { fromEvent, from } from 'rxjs';
-import { map } from 'rxjs/operators'
+import { map, mergeAll, mergeMap } from 'rxjs/operators'
+import { ajax } from 'rxjs/ajax';
 
-const keyup$ = fromEvent(document.getElementById("search"), "keyup")
+const user$ = fromEvent(document.getElementById("search"), "keyup")
     .pipe(
-        map(e => e.target.value)
+        map(e => e.target.value),
+        mergeMap(query => ajax.getJSON(`https://api.github.com/search/users?q=${query}`))
     );
 
-keyup$.subscribe(v => console.log(v));
-
-const request$ = from(fetch("https://api.github.com/search/users?q=sculove")
-    .then(res => res.json()));
-
-request$.subscribe(json => {
-    console.log(json)
-})
+user$.subscribe(v => console.log(v));
