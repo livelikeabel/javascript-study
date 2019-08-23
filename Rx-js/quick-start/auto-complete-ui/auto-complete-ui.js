@@ -1,5 +1,5 @@
 import { fromEvent, from } from 'rxjs';
-import { tap, map, mergeAll, mergeMap, debounceTime, filter, distinctUntilChanged } from 'rxjs/operators'
+import { tap, map, mergeAll, mergeMap, debounceTime, filter, distinctUntilChanged, partition } from 'rxjs/operators'
 import { ajax } from 'rxjs/ajax';
 
 const $layer = document.getElementById("suggestLayer");
@@ -29,21 +29,24 @@ const keyup$ = fromEvent(document.getElementById("search"), "keyup")
         distinctUntilChanged(),
     )
 
-const reset$ = keyup$
+let [user$, reset$] = keyup$
     .pipe(
-        filter(query => query.trim().length === 0),
-        tap(v => $layer.innerHTML = "")
+        partition(query => query.trim().length > 0)
     )
 
-const user$ = keyup$
+user$ = keyup$
     .pipe(
-        filter(query => query.trim().length > 0),
         tap(showLoading),
         mergeMap(query => ajax.getJSON(`https://api.github.com/search/users?q=${query}`)),
         tap(hideLoading)
     );
 
+reset$ = keyup$
+    .pipe(
+        tap(v => $layer.innerHTML = "")
+    )
+    .subscribe();
+
 user$.subscribe(v => {
     drawLayer(v.items)
 });
-reset$.subscribe();
