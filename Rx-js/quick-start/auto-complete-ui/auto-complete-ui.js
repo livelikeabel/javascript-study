@@ -22,11 +22,21 @@ function hideLoading() {
     $loading.style.display = "none";
 }
 
-const user$ = fromEvent(document.getElementById("search"), "keyup")
+const keyup$ = fromEvent(document.getElementById("search"), "keyup")
     .pipe(
         debounceTime(300),
         map(e => e.target.value),
         distinctUntilChanged(),
+    )
+
+const reset$ = keyup$
+    .pipe(
+        filter(query => query.trim().length === 0),
+        tap(v => $layer.innerHTML = "")
+    )
+
+const user$ = keyup$
+    .pipe(
         filter(query => query.trim().length > 0),
         tap(showLoading),
         mergeMap(query => ajax.getJSON(`https://api.github.com/search/users?q=${query}`)),
@@ -36,3 +46,4 @@ const user$ = fromEvent(document.getElementById("search"), "keyup")
 user$.subscribe(v => {
     drawLayer(v.items)
 });
+reset$.subscribe();
