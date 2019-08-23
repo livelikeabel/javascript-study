@@ -1,5 +1,5 @@
 import { fromEvent, from } from 'rxjs';
-import { tap, map, mergeAll, mergeMap, debounceTime, filter, distinctUntilChanged, partition } from 'rxjs/operators'
+import { tap, map, mergeAll, switchMap, mergeMap, debounceTime, filter, distinctUntilChanged, partition } from 'rxjs/operators'
 import { ajax } from 'rxjs/ajax';
 
 const $layer = document.getElementById("suggestLayer");
@@ -37,7 +37,7 @@ let [user$, reset$] = keyup$
 user$ = keyup$
     .pipe(
         tap(showLoading),
-        mergeMap(query => ajax.getJSON(`https://api.github.com/search/users?q=${query}`)),
+        switchMap(query => ajax.getJSON(`https://api.github.com/search/users?q=${query}`)),
         tap(hideLoading)
     );
 
