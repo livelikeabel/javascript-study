@@ -1,5 +1,5 @@
 import { fromEvent, from } from 'rxjs';
-import { tap, map, mergeAll, switchMap, mergeMap, debounceTime, filter, distinctUntilChanged, partition, catchError } from 'rxjs/operators'
+import { tap, map, mergeAll, switchMap, mergeMap, debounceTime, filter, distinctUntilChanged, partition, catchError, retry, finalize } from 'rxjs/operators'
 import { ajax } from 'rxjs/ajax';
 
 const $layer = document.getElementById("suggestLayer");
@@ -39,10 +39,8 @@ user$ = keyup$
         tap(showLoading),
         switchMap(query => ajax.getJSON(`https://api.github.com/search/users?q=${query}`)),
         tap(hideLoading),
-        catchError((e, orgObservable) => {
-            console.log('에러 발생했으나 다시 호출하도록 처리', e.message);
-            return orgObservable;
-        })
+        retry(2),
+        finalize(hideLoading)
     );
 
 reset$ = keyup$
