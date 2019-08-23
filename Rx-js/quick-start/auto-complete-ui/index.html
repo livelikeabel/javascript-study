@@ -7,12 +7,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Auto complete UI</title>
     <link rel="stylesheet" type="text/css" href="./index.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous" />
 </head>
 
 <body>
     <div class="autocomplete">
         <input id="search" type="input" placeholder="검색하고 싶은 사용자 아이디를 입력해주세요"></input>
         <ul id="suggestLayer"></ul>
+        <div id="loading">
+            <i class="fas fa-atom fa-pulse"></i>
+        </div>
     </div>
     <script src="./auto-complete-ui.js"></script>
 </body>
