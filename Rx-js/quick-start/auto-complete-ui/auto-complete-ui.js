@@ -27,6 +27,7 @@ const keyup$ = fromEvent(document.getElementById("search"), "keyup")
         debounceTime(300),
         map(e => e.target.value),
         distinctUntilChanged(),
+        tap(v => console.log("from keyup$", v))
     )
 
 let [user$, reset$] = keyup$
