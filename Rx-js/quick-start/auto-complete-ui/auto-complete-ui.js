@@ -1,5 +1,5 @@
-import { fromEvent, from } from 'rxjs';
-import { tap, map, mergeAll, switchMap, mergeMap, debounceTime, filter, distinctUntilChanged, partition, catchError, retry, finalize } from 'rxjs/operators'
+import { Subject, fromEvent, from } from 'rxjs';
+import { tap, map, mergeAll, switchMap, mergeMap, debounceTime, filter, distinctUntilChanged, partition, catchError, retry, finalize, multicast, publish, refCount, share } from 'rxjs/operators'
 import { ajax } from 'rxjs/ajax';
 
 const $layer = document.getElementById("suggestLayer");
@@ -27,7 +27,8 @@ const keyup$ = fromEvent(document.getElementById("search"), "keyup")
         debounceTime(300),
         map(e => e.target.value),
         distinctUntilChanged(),
-        tap(v => console.log("from keyup$", v))
+        tap(v => console.log("from keyup$", v)),
+        share()
     )
 
 let [user$, reset$] = keyup$
@@ -35,7 +36,7 @@ let [user$, reset$] = keyup$
         partition(query => query.trim().length > 0)
     )
 
-user$ = keyup$
+user$ = user$
     .pipe(
         tap(showLoading),
         switchMap(query => ajax.getJSON(`https://api.github.com/search/users?q=${query}`)),
@@ -44,12 +45,6 @@ user$ = keyup$
         finalize(hideLoading)
     );
 
-reset$ = keyup$
-    .pipe(
-        tap(v => $layer.innerHTML = "")
-    )
-    .subscribe();
-
 user$.subscribe({
     next: v => drawLayer(v.items),
     error: e => {
@@ -57,3 +52,10 @@ user$.subscribe({
         alert(e.message);
     }
 });
+
+reset$
+    .pipe(
+        tap(v => $layer.innerHTML = ""),
+        tap(v => console.log("from reset$", v))
+    )
+    .subscribe();
