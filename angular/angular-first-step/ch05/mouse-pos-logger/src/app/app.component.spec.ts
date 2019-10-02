@@ -7,11 +7,12 @@ import { AnotherLoggerService } from './another-logger.service';
 import { LogLevel } from './log-level.enum';
 import { LOG_LEVEL_TOKEN } from './app.tokens';
 
-describe('AppComponent', () => {
+fdescribe('AppComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [AppComponent, MouseTrackZoneComponent],
-      providers: [MySpecialLoggerService, AnotherLoggerService, { provide: LOG_LEVEL_TOKEN, useValue: LogLevel.INFO }]
+      providers: [MySpecialLoggerService, AnotherLoggerService,
+        { provide: LOG_LEVEL_TOKEN, useValue: LogLevel.INFO }]
     });
   });
 
