@@ -1,5 +1,5 @@
 import { Subject, fromEvent, from } from 'rxjs';
-import { tap, map, mergeAll, switchMap, mergeMap, debounceTime, filter, distinctUntilChanged, partition, catchError, retry, finalize, multicast, publish, refCount, share } from 'rxjs/operators'
+import { tap, map, switchMap, debounceTime, distinctUntilChanged, partition, retry, finalize, share } from 'rxjs/operators'
 import { ajax } from 'rxjs/ajax';
 
 const $layer = document.getElementById("suggestLayer");
@@ -42,7 +42,8 @@ user$ = user$
         switchMap(query => ajax.getJSON(`https://api.github.com/search/users?q=${query}`)),
         tap(hideLoading),
         retry(2),
-        finalize(hideLoading)
+        finalize(hideLoading),
+        tap(v => console.log('from user$', v))
     );
 
 user$.subscribe({
