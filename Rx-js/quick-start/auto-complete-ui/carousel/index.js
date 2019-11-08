@@ -1,6 +1,7 @@
 import { fromEvent } from 'rxjs';
-import { map, switchMap, takeUntil } from 'rxjs/operators';
+import { map, switchMap, takeUntil, first } from 'rxjs/operators';
 
+// Declares
 const $view = document.getElementById("carousel");
 const $container = $view.querySelector(".container");
 const PANEL_COUNT = $container.querySelectorAll(".panel").length;
@@ -17,6 +18,7 @@ function toPos(obs$) {
     );
 }
 
+// Observables
 const start$ = fromEvent($view, EVENTS.start).pipe(toPos);
 const move$ = fromEvent($view, EVENTS.move).pipe(toPos);
 const end$ = fromEvent($view, EVENTS.end);
@@ -28,9 +30,11 @@ const drag$ = start$.pipe(
             takeUntil(end$)
         );
     })
-)
+);
 
-// start$.subscribe(e => console.log('start', e))
-// move$.subscribe(e => console.log('move', e))
-// end$.subscribe(e => console.log('end'))
+const drop$ = drag$.pipe(
+    switchMap(drag => end$.pipe(first())),
+);
+
 drag$.subscribe(e => console.log('drag', e))
+drop$.subscribe(e => console.log('drop$', e))
