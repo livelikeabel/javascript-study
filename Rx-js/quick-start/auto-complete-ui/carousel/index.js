@@ -1,5 +1,5 @@
-import { fromEvent } from 'rxjs';
-import { map, switchMap, takeUntil, first } from 'rxjs/operators';
+import { fromEvent, merge } from 'rxjs';
+import { map, switchMap, takeUntil, first, startWith, withLatestFrom, tap, share } from 'rxjs/operators';
 
 // Declares
 const $view = document.getElementById("carousel");
@@ -22,19 +22,34 @@ function toPos(obs$) {
 const start$ = fromEvent($view, EVENTS.start).pipe(toPos);
 const move$ = fromEvent($view, EVENTS.move).pipe(toPos);
 const end$ = fromEvent($view, EVENTS.end);
+const size$ = fromEvent(window, "resize").pipe(
+    startWith(0),
+    map(event => $view.clientWidth)
+);
 
 const drag$ = start$.pipe(
     switchMap(start => {
         return move$.pipe(
             map(move => move - start),
-            takeUntil(end$)
+            takeUntil(end$),
+            share()
         );
     })
 );
 
 const drop$ = drag$.pipe(
-    switchMap(drag => end$.pipe(first())),
+    switchMap(drag => {
+        return end$.pipe(
+            map(event => drag),
+            first()
+        )
+    }),
+    withLatestFrom(size$)
 );
 
-drag$.subscribe(e => console.log('drag', e))
-drop$.subscribe(e => console.log('drop$', e))
+const carousel$ = merge(drag$, drop$);
+
+carousel$.subscribe(v => console.log(v));
+// drag$.subscribe(e => console.log(e))
+// drop$.subscribe(e => console.log(e))
+// size$.subscribe(width => console.log('width', width))
