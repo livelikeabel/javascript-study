@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   // entry file
-  entry: './src/js/main.js',
+  entry: ['@babel/polyfill', './src/js/main.js'],
   // Set compile + budling js file's path and name
   output: {
     path: path.resolve(__dirname, 'dist/js'),
