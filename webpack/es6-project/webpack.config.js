@@ -1,4 +1,5 @@
 const path = require('path');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   // entry file
@@ -6,8 +7,12 @@ module.exports = {
   // Set compile + budling js file's path and name
   output: {
     path: path.resolve(__dirname, 'dist/js'),
-    filename: 'bundle.js'    
+    filename: 'js/bundle.js'
   },
+  plugins: [
+    // Set path and name that will save compile + bundling CSS files
+    new MiniCssExtractPlugin({ filename: 'css/style.css' })
+  ],
   module: {
     rules: [
       {
@@ -27,7 +32,7 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-          "style-loader", // creates style nodes from JS strings
+          MiniCssExtractPlugin.loader,
           "css-loader",   // translates CSS into CommonJS
           "sass-loader"   // compiles Sass to CSS, using Node Sass by default
         ],
