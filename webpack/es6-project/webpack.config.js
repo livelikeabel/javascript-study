@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   // entry file
-  entry: ['@babel/polyfill', './src/js/main.js'],
+  entry: ['@babel/polyfill', './src/js/main.js', './src/sass/main.scss'],
   // Set compile + budling js file's path and name
   output: {
     path: path.resolve(__dirname, 'dist/js'),
@@ -23,6 +23,15 @@ module.exports = {
             plugins: ['@babel/plugin-proposal-class-properties']
           }
         }
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          "style-loader", // creates style nodes from JS strings
+          "css-loader",   // translates CSS into CommonJS
+          "sass-loader"   // compiles Sass to CSS, using Node Sass by default
+        ],
+        exclude: /node_modules/
       }
     ]
   },
