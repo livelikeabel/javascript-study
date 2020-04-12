@@ -4,7 +4,23 @@ const textNode = (input, cursor, curr)=>{
         type:'text', text:input.substring(cursor, idx)
     });
     return idx;
-}
+};
+
+const elementNode = (input, cursor, idx, curr, stack)=>{
+    let name, isClose;
+    if(input[idx - 1] === '/'){
+        name = input.substring(cursor + 1, idx - 1), isClose = true;
+    }else{
+        name = input.substring(cursor + 1, idx), isClose = false;
+    }
+    const tag = {name, type:'node', children:[]};
+    curr.tag.children.push(tag);
+    if(!isClose){
+        stack.push({tag, back:curr});
+        return true;
+    }
+    return false;
+};
 
 const parser = input=>{
     input = input.trim();
@@ -16,11 +32,25 @@ const parser = input=>{
             const cursor = i;
             if(input[cursor] === '<'){
                 // A, B의 경우
-            }else{
-                // C의 경우
-                i = textNode(input, cursor, curr);
-            }
+                const idx = input.indexOf('>', cursor);
+                i = idx + 1;
+                if(input[cursor + 1] === '/'){
+                    curr = curr.back;
+                }else{
+                    if(elementNode(input, cursor, idx, curr, stack)) break;
+                }
+            }else	i = textNode(input, cursor, curr); // C의 경우
         }
     };
     return result;
 };
+
+console.log('-------', parser(`<div>
+  a
+  <a>b</a>
+  c
+  <img/>
+  d
+</div>
+
+`));
