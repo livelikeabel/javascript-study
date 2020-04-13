@@ -7,13 +7,8 @@ const textNode = (input, cursor, curr)=>{
 };
 
 const elementNode = (input, cursor, idx, curr, stack)=>{
-    let name, isClose;
-    if(input[idx - 1] === '/'){
-        name = input.substring(cursor + 1, idx - 1), isClose = true;
-    }else{
-        name = input.substring(cursor + 1, idx), isClose = false;
-    }
-    const tag = {name, type:'node', children:[]};
+    const isClose = input[idx - 1] === '/';
+    const tag = {name: input.substring(cursor + 1, idx - (isClose ? 1: 0)), type: 'node', children:[]};
     curr.tag.children.push(tag);
     if(!isClose){
         stack.push({tag, back:curr});
