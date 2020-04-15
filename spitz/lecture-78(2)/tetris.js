@@ -75,3 +75,66 @@ const blocks = [
         }
     }
 ];
+const Renderer = class{
+  constructor(col, row){
+      prop(this, {col, row, blocks:[]});
+      while(row--) this.blocks.push([]);
+  }
+  clear(){throw 'override';}
+  render(data){
+      if(!(data instanceof Data)) throw 'invalid data';
+      this._render(data);
+  }
+  _render(data){throw 'override!';}
+};
+const Data = class extends Array{
+    constructor(row, col){prop(this, {row, col});}
+};
+const el = el=>document.createElement(el);
+const back = (s, v)=>s.backgroundColor = v;
+const TableRenderer = class extends Renderer{
+    constructor(base, back, col, row){
+        super(col, row);
+        this.back = back;
+        while(row--){
+            const tr = base.appendChild(el('tr')), curr = [];
+            this.blocks.push(curr);
+            let i = col;
+            while(i--) curr.push(tr.appendChild(el('td')).style);
+        }
+        this.clear();
+    }
+    clear(){
+        this.blocks.forEach(
+            curr=>curr.forEach(s=>back(a, this.back))
+        );
+    }
+    _render(v){
+        this.blocks.forEach(
+            (curr,row)=>curr.forEach((s,col)=>back(s, v[row][col]))
+        );
+    }
+};
+const CanvasRenderer = class extends Renderer{
+    constructor(base, back, col, row){
+        super(col, row);
+        prop(this, {
+            width:base.width = parseInt(base.style.width),
+            height:base.height = parseInt(base.style.height),
+            cellSize:[base.width/col, base.height/row],
+            ctx:base.getContext('2d')
+        })
+    }
+    _render(v) {
+        const {ctx, cellSize:[w, h]} = this;
+        ctx.clearRect(0, 0, this.width, this.height);
+        let i = this.row;
+        while(i--){
+            let j = this.col;
+            while(j--){
+                ctx.fillStyle = v[i][j];
+                ctx.fillRect(j * w, i * h, w, h);
+            }
+        }
+    }
+};
