@@ -105,28 +105,11 @@ const el = tag=>document.createElement(tag);
 const DOMRenderer = class extends Renderer{
     constructor(parent, app){
         super(app);
-        this.el = parent.appendChild(el('section'));
-        this.el.innerHTML = `
-            <nav>
-                <input type="text">
-                <ul></ul>
-             </nav>
-            <section>
-                <header>
-                    <h2></h2>
-                    <input type="text">
-                </header>
-                <ul></ul>
-            </section>
-        `;
-        this.el.querySelector('nav').style.cssText = `float:left; width:200px; border-right:1px solid #000`;
-        this.el.querySelector('section').style.cssText = `margin-left:210px;`;
-        const ul = this.el.querySelectorAll('ul');
-        this.folder = ul[0];
-        this.task = ul[1];
+        const [folder, task] = Array.from(parent.querySelectorAll('ul'));
+        this.folder = folder;
+        this.task = task;
         this.currentFolder = null;
-        const input = this.el.querySelectorAll('input');
-        input[0].addEventListener("keyup",e =>{
+        parent.querySelector('nav>input').addEventListener("keyup",e =>{
             if(e.keyCode != 13) return;
             const v = e.target.value.trim();
             if(!v) return;
@@ -135,7 +118,7 @@ const DOMRenderer = class extends Renderer{
             e.target.value = '';
             this.render();
         });
-        input[1].addEventListener("keyup",e =>{
+        parent.querySelector('header>input').addEventListener("keyup",e =>{
             if(e.keyCode != 13 || !this.currentFolder) return;
             const v = e.target.value.trim();
             if(!v) return;
@@ -174,4 +157,4 @@ const DOMRenderer = class extends Renderer{
     }
 };
 
-new DOMRenderer(document.body, new App());
+new DOMRenderer(document.querySelector('main'), new App());
