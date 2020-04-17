@@ -39,26 +39,26 @@ const Task = class{
     isOkay = task.getInfo().title == 'test1' && task.getInfo().isCompleted == true;
     console.log('2', isOkay);
 };
-// 배열을 만들면 중복되어 있는 레퍼런스 데이터가 들어올 수 있다.
-const Folder = class{
+const Folder = class extends Set{
   constructor(title){
+      super();
       this.title = title;
-      this.tasks = new Set();
   }
   addTask(task){
       if(!task instanceof Task) err('invalid task');
-      this.tasks.add(task);
+      super.add(task);
   }
   removeTask(task){
       if(!task instanceof Task) err('invalid task');
-      this.tasks.delete(task);
+      super.delete(task);
   }
   getTasks(){
-      return [...this.tasks.values()];
+      return [...super.values()];
   }
   getTitle(){
       return this.title;
   }
+  add(){} delete(){err('...')} clear(){} values(){}
 };
 (()=>{
     let isOkay = true;
@@ -73,21 +73,22 @@ const Folder = class{
     isOkay = folder.getTasks().length == 1 && folder.getTasks()[0].title == 'task1';
     console.log('3', isOkay);
 });
-const App = class{
+const App = class extends Set{
     constructor() {
-        this.folders = new Set();
+        super();
     }
     addFolder(folder){
         if(!folder instanceof Folder) err('invalid folder');
-        this.folders.add(folder);
+        super.add(folder);
     }
     removeFolder(folder){
         if(!folder instanceof Folder) err('invalid folder');
-        this.folders.delete(folder);
+        super.delete(folder);
     }
     getFolders(){
-        return [...this.folders.values()];
+        return [...super.values()];
     }
+    add(){} delete(){err('...')} clear(){} values(){}
 };
 
 const Renderer = class{
