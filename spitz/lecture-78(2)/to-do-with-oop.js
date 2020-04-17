@@ -10,6 +10,7 @@ const err = v=>{
   throw v;
 };
 const Task = class{
+    static get(title){return new Task(title);}
     constructor(title, isCompleted = false){
         this.title = title;
         this.isCompleted = isCompleted;
@@ -40,9 +41,15 @@ const Task = class{
     console.log('2', isOkay);
 };
 const Folder = class extends Set{
+  static get(title){return new Folder(title)}
   constructor(title){
       super();
       this.title = title;
+  }
+  moveTask(task, folderSrc){
+      if(super.has(task) || !folderSrc.has(task)) return err('.');
+      folderSrc.remove(task);
+      this.addTask(task);
   }
   addTask(task){
       if(!task instanceof Task) err('invalid task');
@@ -114,7 +121,7 @@ const DOMRenderer = class extends Renderer{
             if(e.keyCode != 13) return;
             const v = e.target.value.trim();
             if(!v) return;
-            const folder = new Folder(v);
+            const folder = Folder.get(v);
             this.app.addFolder(folder);
             e.target.value = '';
             this.render();
@@ -123,7 +130,7 @@ const DOMRenderer = class extends Renderer{
             if(e.keyCode != 13 || !this.currentFolder) return;
             const v = e.target.value.trim();
             if(!v) return;
-            const task = new Task(v);
+            const task = Task.get(v);
             this.currentFolder.addTask(task);
             e.target.value = '';
             this.render();
@@ -131,15 +138,24 @@ const DOMRenderer = class extends Renderer{
     }
     _render() {
         const folders = this.app.getFolders();
+        let moveTask;
         if(!this.currentFolder)this.currentFolder = folders[0];
         this.folder.innerHTML = '';
         folders.forEach(f => {
            const li = el('li');
+           li.setAttribute('draggable', true);
            li.innerHTML = f.getTitle();
            li.style.cssText = `font-weight:${this.currentFolder == f?'bold':'normal'}`;
            li.addEventListener('click', ()=>{
               this.currentFolder = f;
               this.render();
+           });
+           li.addEventListener("drop", e=>{
+               e.preventDefault();
+               f.moveTask(moveTask, this.currentFolder);
+           });
+           li.addEventListener("dragover", e=>{
+               e.preventDefault();
            });
            this.folder.appendChild(li);
         });
@@ -148,10 +164,16 @@ const DOMRenderer = class extends Renderer{
         this.currentFolder.getTasks().forEach(t =>{
            const li = el('li');
            const {title, isCompleted} = t.getInfo();
+           li.setAttribute('draggable', true);
            li.innerHTML = `${isCompleted?'completed ':'process '}${title}`;
-           li.addEventListener('click',()=>{
+           li.addEventListener('click', e=>{
+              e.preventDefault();
               t.toggle();
               this._render();
+           });
+           li.addEventListener('dragstart', e=>{
+               e.preventDefault();
+               moveTask = t;
            });
            this.task.appendChild(li);
         });
