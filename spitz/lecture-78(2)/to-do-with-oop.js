@@ -10,7 +10,13 @@ const err = v=>{
   throw v;
 };
 const Task = class{
+    static load(json) {
+        return new Task(json.title, json.isCompleted);
+    }
     static get(title){return new Task(title);}
+    toJSON(){
+        return this.getInfo();
+    }
     constructor(title, isCompleted = false){
         this.title = title;
         this.isCompleted = isCompleted;
@@ -41,7 +47,17 @@ const Task = class{
     console.log('2', isOkay);
 };
 const Folder = class extends Set{
+  static load(json){
+      const folder = new Folder(json.title);
+      json.tasks.forEach(t=>{
+          folder.addTask(Task.load(t));
+      });
+      return folder;
+  }
   static get(title){return new Folder(title)}
+  toJSON() {
+      return {title: this.title, tasks: this.getTasks()};
+  };
   constructor(title){
       super();
       this.title = title;
@@ -81,6 +97,16 @@ const Folder = class extends Set{
     console.log('3', isOkay);
 });
 const App = class extends Set{
+    static load(json){
+        const app = new App();
+        json.forEach(f=>{
+            app.addFolder(Folder.load(f));
+        });
+        return app;
+    }
+    toJSON(){
+        return this.getFolders();
+    }
     constructor() {
         super();
     }
@@ -115,6 +141,17 @@ const DOMRenderer = class extends Renderer{
         super(app);
         this.taskEl=[];
         const [folder, task] = Array.from(parent.querySelectorAll('ul'));
+        const [load, save] = Array.from(parent.querySelectorAll('button'));
+        load.onclick = e=>{
+            const v = localStorage['todo'];
+            if(v) {
+                this.app = App.load(JSON.parse(v));
+                this.render();
+            }
+        };
+        save.onclick = e=>{
+            localStorage['todo'] = JSON.stringify(this.app);
+        };
         this.folder = folder;
         this.task = task;
         this.currentFolder = null;
