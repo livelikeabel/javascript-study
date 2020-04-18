@@ -113,6 +113,7 @@ const el = tag=>document.createElement(tag);
 const DOMRenderer = class extends Renderer{
     constructor(parent, app){
         super(app);
+        this.taskEl=[];
         const [folder, task] = Array.from(parent.querySelectorAll('ul'));
         this.folder = folder;
         this.task = task;
@@ -147,7 +148,7 @@ const DOMRenderer = class extends Renderer{
                li = oldEl;
                oldEl = oldEl.nextElementSibling;
            }else {
-               li=el('li');
+               li= this.taskEl.length ? this.taskEl.pop() : el('li');
                this.folder.appendChild(li);
                oldEl=null;
            };
@@ -169,6 +170,7 @@ const DOMRenderer = class extends Renderer{
         });
         if(lastEl) while(oldEl=lastEl.nextElementSibling){
             this.folder.removeChild(oldEl);
+            this.taskEl.push(oldEl);
         }
         if(!this.currentFolder) return;
         tasks = this.currentFolder.getTasks();
@@ -202,6 +204,7 @@ const DOMRenderer = class extends Renderer{
             });
             if(lastEl) while(oldEl=lastEl.nextElementSibling){
                 this.task.removeChild(oldEl);
+                this.taskEl.push(oldEl);
             }
         }
     }
