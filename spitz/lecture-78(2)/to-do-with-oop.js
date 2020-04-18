@@ -48,7 +48,7 @@ const Folder = class extends Set{
   }
   moveTask(task, folderSrc){
       if(super.has(task) || !folderSrc.has(task)) return err('.');
-      folderSrc.remove(task);
+      folderSrc.removeTask(task);
       this.addTask(task);
   }
   addTask(task){
@@ -138,45 +138,72 @@ const DOMRenderer = class extends Renderer{
     }
     _render() {
         const folders = this.app.getFolders();
-        let moveTask;
+        let moveTask, tasks;
         if(!this.currentFolder)this.currentFolder = folders[0];
-        this.folder.innerHTML = '';
+        let oldEl = this.folder.firstElementChild, lastEl = null;
         folders.forEach(f => {
-           const li = el('li');
+           let li;
+           if(oldEl){
+               li = oldEl;
+               oldEl = oldEl.nextElementSibling;
+           }else {
+               li=el('li');
+               this.folder.appendChild(li);
+               oldEl=null;
+           };
+           lastEl = li;
            li.setAttribute('draggable', true);
            li.innerHTML = f.getTitle();
            li.style.cssText = `font-weight:${this.currentFolder == f?'bold':'normal'}`;
-           li.addEventListener('click', ()=>{
+           li.onclick = ()=>{
               this.currentFolder = f;
               this.render();
-           });
-           li.addEventListener("drop", e=>{
+           };
+           li.ondrop = e=>{
                e.preventDefault();
                f.moveTask(moveTask, this.currentFolder);
-           });
-           li.addEventListener("dragover", e=>{
+           };
+           li.ondragover = e=>{
                e.preventDefault();
-           });
-           this.folder.appendChild(li);
+           };
         });
+        if(lastEl) while(oldEl=lastEl.nextElementSibling){
+            this.folder.removeChild(oldEl);
+        }
         if(!this.currentFolder) return;
-        this.task.innerHTML = '';
-        this.currentFolder.getTasks().forEach(t =>{
-           const li = el('li');
-           const {title, isCompleted} = t.getInfo();
-           li.setAttribute('draggable', true);
-           li.innerHTML = `${isCompleted?'completed ':'process '}${title}`;
-           li.addEventListener('click', e=>{
-              e.preventDefault();
-              t.toggle();
-              this._render();
-           });
-           li.addEventListener('dragstart', e=>{
-               e.preventDefault();
-               moveTask = t;
-           });
-           this.task.appendChild(li);
-        });
+        tasks = this.currentFolder.getTasks();
+        if(tasks.length == 0){
+            while(oldEl=this.task.firstElementChild){
+                this.task.removeChild(oldEl);
+            }
+        }else{
+            oldEl = this.task.firstElementChild, lastEl = null;
+            tasks.forEach(t =>{
+                let li;
+                if(oldEl){
+                    li = oldEl;
+                    oldEl = oldEl.nextElementSibling;
+                }else {
+                    li=el('li');
+                    this.task.appendChild(li);
+                    oldEl=null;
+                }
+                lastEl = li;
+                const {title, isCompleted} = t.getInfo();
+                li.setAttribute('draggable', true);
+                li.innerHTML = `${isCompleted?'completed ':'process '}${title}`;
+                li.addEventListener('click', e=>{
+                    t.toggle();
+                    this._render();
+                });
+                li.addEventListener('dragstart', e=>{
+                    moveTask = t;
+                });
+            });
+            if(lastEl) while(oldEl=lastEl.nextElementSibling){
+                this.task.removeChild(oldEl);
+            }
+        }
     }
 };
 
