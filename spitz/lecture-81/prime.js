@@ -30,3 +30,17 @@ const prime2 =(end)=>{
     }
     return prime.concat(num);
 };
+
+const prime3 =end=>{
+    const num = [2];
+    for(let i = 3; i <= end; i += 2) num.push(i);
+    for(let k = 1; k < num.length; k++){
+        let curr = num[k], min = curr * curr, i = num.length;
+        if(num[i - 1] < min) break;
+        while(i--){
+            if(num[i] < min) break;
+            if(num[i] % curr == 0) num.splice(i,1);
+        }
+    }
+    return num;
+};
