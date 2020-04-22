@@ -3,7 +3,7 @@ export function createCounter(options = {}) {
   const min = options.min || Number.NEGATIVE_INFINITY;
   const max = options.max || Number.POSITIVE_INFINITY;
 
-  return {
+  return {0
     val() {
       return value;
     },

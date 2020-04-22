@@ -11,9 +11,9 @@ export function createUICounter(el, options) {
     const incDisabled = counter.isMax() ? 'disabled' : '';
 
     $el.html(`
-      <button type="button" ${decDisabled} class="btn btn-secondary btn-dec">-</button>
-      <span class="value">${val}</span>
-      <button type="button" ${incDisabled} class="btn btn-primary btn-inc">+</button>
+      <button data-testid="btn-dec" type="button" ${decDisabled} class="btn btn-secondary btn-dec">-</button>
+      <span data-testid="value" class="value">${val}</span>
+      <button data-testid="btn-inc" type="button" ${incDisabled} class="btn btn-primary btn-inc">+</button>
     `);
   }
 
