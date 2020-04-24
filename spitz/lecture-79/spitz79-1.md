@@ -221,9 +221,62 @@ set parser를 통해 parser를 받아들이게 되어있다. 내가 소유하게
 
 **커맨드 패턴 응용**
 
+```js
+const Github = class{
+  constructor(id, repo){
+    this._base = `https://api.github.com/repos/${id}/${repo}/contents`;
+  }
+  load(path){
+    if(!this._parser) return;
+		const id = 'callback' + Github._id++;
+    const f = Github[id] = ({data:{content}})=>{
+      delete Github[id];
+      document.head.removeChild(s);
+      this._parser[0](content, ...this._parser[1]); // 커맨드 인보커
+		};
+    const s = document.createElement('script');
+    s.src = `%{this._base + path}?callback=Github. ${id}`;
+    document.head.appendChild(s);
+  }
+  setParser(f, ...arg){this._parser = [f, arg];} // 커맨드 객체화
+}
+Github._id = 0;
+```
 
 
 
+**실행시점 선택 위임**
+
+```js
+const Loader = class{
+  constructor(id, repo){
+    this._git = new Github(id, repo);
+    this._router = new Map; // 라우팅 테이블
+  }
+  add(ext, f, ...arg){
+    ext.split(',').forEach(v=>this._router.set(v, [f, ...arg]));
+  }
+  load(v){
+    const ext = this._v.split('.').pop();
+    if(!this._router.has(ext)) return;
+    this._git.setParser(...this._router.get(ext)); // 확장자 경우에 따라 자동분기
+    this._git.load(v);
+  }
+};
+
+const loader = new Loader('hikaMaeng', 'codespitz79');
+loader.add('jpg,png,gif', img, el('#a')); // 발생가능한 경우의 수를 값으로 기술
+loader.add('md', md, el('#b'));
+
+loader.load('xx.jpg');
+loader.load('xx.md');
+```
+
+
+
+자바스크립트가 왜 프로토타입 체인이라는 시스템을 사용하는가?
+
+넷스케이프2.0이 486DS66시절에 나왔기 때문. 그 때 메모리는 4MB가 최대였다. 4MB로 복잡한 객체지향을 돌리려니, 최대한 많은 메모리 영역을 공유하고 싶어서 체이닝 시스템을 사용한 것이다.
 
 
 
