@@ -34,8 +34,8 @@ class App extends Component {
   }
 
   addUnit(unitId) {
-    const { problemUnitList, selectedUnit } = this.state;
-    const targetUnit = this.state.similarUnitList.find(v => v.id === unitId);
+    const { problemUnitList, similarUnitList, selectedUnit } = this.state;
+    const targetUnit = similarUnitList.find(v => v.id === unitId);
     const selectedUnitIdx = problemUnitList.findIndex(v => v.id === selectedUnit.id);
     this.setState({
       problemUnitList: [
@@ -43,13 +43,26 @@ class App extends Component {
         targetUnit,
         ...problemUnitList.slice(selectedUnitIdx + 1)
       ],
-      similarUnitList: this.state.similarUnitList.filter(_unit => _unit.id !== unitId),
+      similarUnitList: similarUnitList.filter(_unit => _unit.id !== unitId),
     })
   }
 
   swapUnit(unitId) {
+    const { problemUnitList, similarUnitList, selectedUnit } = this.state;
+    const targetUnit = similarUnitList.find(v => v.id === unitId);
+    const targetUnitIdx = similarUnitList.findIndex(v => v.id === unitId);
+    const selectedUnitIdx = problemUnitList.findIndex(v => v.id === selectedUnit.id);
     this.setState({
-      problemUnitList: this.state.problemUnitList.filter(_unit => _unit.id !== unitId)
+      problemUnitList: [
+        ...problemUnitList.slice(0, selectedUnitIdx),
+        targetUnit,
+        ...problemUnitList.slice(selectedUnitIdx + 1)
+      ],
+      similarUnitList: [
+        ...similarUnitList.slice(0, targetUnitIdx),
+        selectedUnit,
+        ...similarUnitList.slice(targetUnitIdx + 1)
+      ]
     })
   }
 
@@ -61,7 +74,7 @@ class App extends Component {
     ];
     const similarActions = [
       { name: '추가', action: unitId => this.addUnit(unitId) },
-      { name: '교체', action: unitId => this.deleteUnit(unitId) }]
+      { name: '교체', action: unitId => this.swapUnit(unitId) }]
     ;
     return (
       <div className="App">
