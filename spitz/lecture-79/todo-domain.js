@@ -34,6 +34,13 @@ const TaskList = class{
     }
     byTitle(stateGroup = true){return this._getList(Sort.title, stateGroup);}
     byDate(stateGroup = true){return this._getList(Sort.date, stateGroup);}
+    _getList(sort, stateGroup){
+        const list = this._list;
+        return !stateGroup ? [...list].sort(sort) : [
+            ...list.filter(v=>!v.isComplete()).sort(sort),
+            ...list.filter(v=>v.isComplete()).sort()
+        ]
+    }
 };
 
 const list1 = new TaskList('비사이드');
@@ -44,5 +51,6 @@ const list2 = new TaskList('s3-4');
 list2.add('2강 답안 작성');
 list2.add('3강 교안 작성');
 
-console.log(list1.byTitle());
-console.log(list1.byDate());
+const list = list2.byDate();
+list[1].task.add('코드정리');
+list[1].task.add('다이어그램정리');
