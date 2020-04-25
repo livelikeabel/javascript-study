@@ -1,15 +1,23 @@
 import React from "react";
 import './UnitItem.scss';
+import Button from './Button';
 
-const UnitItem = ({ unitInfo, index }) => {
-  const { problemType, unitName, problemURL } = unitInfo;
+const UnitItem = ({ unitInfo, index, actionData, isSelected }) => {
+  const { id, problemType, unitName, problemURL } = unitInfo;
   return (
     <div className="UnitItem">
       <div className="header">
         <p>{problemType}</p>
         <p>{unitName}</p>
-        <button>btn1</button>
-        <button>btn2</button>
+        {actionData.map(d => {
+          return (
+            <Button
+              onClick={() => d.action(id)}
+              active={isSelected && d.name === '유사문항'}>
+              {d.name}
+            </Button>
+          )
+        })}
       </div>
       <div className="content">
         <div className="number">{index + 1}</div>

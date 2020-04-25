@@ -2,7 +2,7 @@ import React from "react";
 import UnitItem from "./UnitItem";
 import './UnitList.scss';
 
-const UnitList = ({ title, subTitle, unitData }) => {
+const UnitList = ({ title, subTitle, unitData, actionData, selectedUnit }) => {
   return (
     <section className="UnitList">
       <div>
@@ -11,7 +11,12 @@ const UnitList = ({ title, subTitle, unitData }) => {
       {unitData.map((unit, i) => {
         return (
           <div className="unit-item">
-            <UnitItem key={unit.id} unitInfo={unit} index={i}/>
+            <UnitItem
+              key={unit.id}
+              unitInfo={unit}
+              index={i}
+              actionData={actionData}
+              isSelected={unit.id === selectedUnit?.id}/>
           </div>
         )
       })}
