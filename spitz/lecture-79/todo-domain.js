@@ -21,6 +21,21 @@ const Task = class extends Sort{
     sortDate(task){return this._date > task._date;}
 };
 
+const TaskList = class{
+    constructor(title){
+        if(!title) throw 'invalid title';
+        this._title = title;
+        this._list = [];
+    }
+    add(title, date){this._list.push(Task.get(title, date));}
+    remove(task){
+        const list = this._list;
+        if(list.includes(task)) list.splice(list.indexOf(task), 1);
+    }
+    byTitle(stateGroup = true){return this._getList(Sort.title, stateGroup);}
+    byDate(stateGroup = true){return this._getList(Sort.date, stateGroup);}
+};
+
 const list1 = new TaskList('비사이드');
 list1.add('지라설치');
 list1.add('지라클라우드 접속');
