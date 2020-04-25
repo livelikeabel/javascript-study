@@ -300,3 +300,7 @@ loader.load('xx.md');
 
 
 
+ ## [Spitz 79-3] Design pattern & View pattern
+
+디자인 패턴은, 객체지향적인 역할을 통해서 알고리즘을 제어문으로 기술하지 않고 객체 관계로 푸는 것이라고도 할 수 있다.
+
