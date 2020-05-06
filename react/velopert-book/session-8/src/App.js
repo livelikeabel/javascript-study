@@ -1,17 +1,8 @@
-import React, { useState } from 'react';
-import Counter from "./Counter";
+import React from 'react';
+import Average from "./Average";
 
 function App() {
-  const [visible, setVisible] = useState(false);
-  return (
-    <>
-      <button onClick={() => setVisible(!visible)}>
-        {visible ? 'hide' : 'show'}
-      </button>
-      <hr/>
-      {visible && <Counter/>}
-    </>
-  );
+  return <Average/>;
 }
 
 export default App;
