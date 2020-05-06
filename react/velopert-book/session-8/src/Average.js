@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 
 const getAverage = numbers => {
   console.log('calculate average...');
@@ -11,14 +11,14 @@ const Average = () => {
   const [list, setList] = useState([]);
   const [number, setNumber] = useState('');
 
-  const onChange = e => {
+  const onChange = useCallback( e => {
     setNumber(e.target.value);
-  };
-  const onInsert = e => {
+  }, []); // Create function when component render first time
+  const onInsert = useCallback(() => {
     const nextList = list.concat(parseInt(number));
     setList(nextList);
     setNumber('');
-  };
+  }, [number, list]); // Create function when only change number or list
 
   const avg = useMemo(() => getAverage(list), [list]);
 
