@@ -5,21 +5,21 @@ const Sort = class{
     sortDate(task){throw 'override';}
 };
 
-const Task = class extends Sort{
-    static get(title, date = null){return new Task(title, date);}
-
-    constructor(title, date = null){
-        super();
-        if(!title) throw 'invalid title';
-        this._title = title;
-        this._date = date;
-        this._isComplete = false;
-    }
-    isComplete() {return this.isComplete;}
-    toggle(){this._isComplete = !this._isComplete;}
-    sortTitle(task){return this._title > task._title;}
-    sortDate(task){return this._date > task._date;}
-};
+// const Task = class extends Sort{
+//     static get(title, date = null){return new Task(title, date);}
+//
+//     constructor(title, date = null){
+//         super();
+//         if(!title) throw 'invalid title';
+//         this._title = title;
+//         this._date = date;
+//         this._isComplete = false;
+//     }
+//     isComplete() {return this.isComplete;}
+//     toggle(){this._isComplete = !this._isComplete;}
+//     sortTitle(task){return this._title > task._title;}
+//     sortDate(task){return this._date > task._date;}
+// };
 
 const TaskList = class{
     constructor(title){
@@ -41,6 +41,10 @@ const TaskList = class{
             ...list.filter(v=>v.isComplete()).sort()
         ]
     }
+};
+
+const Task = class{
+
 };
 
 const list1 = new TaskList('비사이드');
