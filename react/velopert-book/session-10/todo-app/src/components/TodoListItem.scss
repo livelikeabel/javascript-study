@@ -1,11 +1,19 @@
-.TodoListItem {
-  padding: 1rem;
-  display: flex;
-  align-items: center;
+.TodoListItem-virtualized {
+  // element 사이사이에 테두리를 넣어준다.
+  & + & {
+    border-top: 1px solid #dee2e6;
+  }
 
   &:nth-child(even) {
     background: #f8f9fa;
   }
+}
+
+
+.TodoListItem {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
 
   .checkbox {
     cursor: pointer;
@@ -44,10 +52,5 @@
     &:hover {
       color: #ff8787;
     }
-  }
-
-  // element 사이사이에 테두리를 넣어준다.
-  & + & {
-    border-top: 1px solid #dee2e6;
   }
 }
