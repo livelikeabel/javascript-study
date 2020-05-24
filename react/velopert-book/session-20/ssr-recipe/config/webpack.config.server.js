@@ -22,7 +22,38 @@ module.exports = {
         oneOf: [
           // for js
           // reference by initial webpack.config.js
-          {}
+          {
+            test: /\.(js|mjs|jsx|ts|tsx)$/,
+            include: paths.appSrc,
+            loader: require.resolve('babel-loader'),
+            options: {
+              customize: require.resolve(
+                'babel-preset-react-app/webpack-overrides'
+              ),
+              plugins: [
+                [
+                  require.resolve('babel-plugin-named-asset-import'),
+                  {
+                    loaderMap: {
+                      svg: {
+                        ReactComponent: '@svgr/webpack?-svgo![path]'
+                      }
+                    }
+                  }
+                ]
+              ],
+              cacheDirectory: true,
+              cacheCompression: false,
+              compact: false
+            }
+          },
+          // Setting For CSS
+          {
+            test: cssRegex,
+            exclude: cssModuleRegex,
+            // exportOnlyLocals: true 옵션을 설정해야 실제 CSS 파일을 생성하지 않습니다.
+
+          }
         ]
       }
     ]
