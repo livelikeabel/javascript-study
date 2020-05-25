@@ -52,7 +52,61 @@ module.exports = {
             test: cssRegex,
             exclude: cssModuleRegex,
             // exportOnlyLocals: true 옵션을 설정해야 실제 CSS 파일을 생성하지 않습니다.
-
+            loader: require.resolve('css-loader'),
+            options: {
+              modules: true,
+              onlyLocals: true,
+              getLocalIdent: getCSSModuleLocalIdent
+            }
+          },
+          // Setting for Sass
+          {
+            test: sassRegex,
+            exclude: sassModuleRegex,
+            use: [
+              {
+                loader: require.resolve('css-loader'),
+                options: {
+                  onlyLocals: true
+                }
+              },
+              require.resolve('sass-loader')
+            ]
+          },
+          // Setting for Sass + CSS Module
+          {
+            test: sassRegex,
+            exclude: sassModuleRegex,
+            use: [
+              {
+                loader: require.resolve('css-loader'),
+                options: {
+                  modules: true,
+                  onlyLocals: true,
+                  getLocalIdent: getCSSModuleLocalIdent
+                }
+              },
+              require.resolve('sass-loader')
+            ]
+          },
+          // Setting for url-loader
+          {
+            test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+            loader: require.resolve('url-loader'),
+            options: {
+              emitFile: false, // Option that not saving file
+              limit: 10000, // 원래는 9.76KB가 넘어가면 파일로 저장하는데 emitFile 값이 false일 때는 경로만 준비하고 파일은 저장하지 않는다.
+              name: 'static/media/[name].[hash:8].[ext]'
+            }
+          },
+          // 위에서 설정된 확장자를 제외한 파일들은 file-loader를 사용한다.
+          {
+            loader: require.resolve('file-loader'),
+            exclude: [/\.(js|mjs|jsx|ts|tsx)$/, /\.html$/, /\.json$/],
+            options: {
+              emitFile: false, // Option that not saving file
+              name: 'static/media/[name].[hash:8].[ext]'
+            }
           }
         ]
       }
