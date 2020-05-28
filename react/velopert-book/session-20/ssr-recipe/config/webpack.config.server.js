@@ -59,6 +59,14 @@ module.exports = {
             // exportOnlyLocals: true 옵션을 설정해야 실제 CSS 파일을 생성하지 않습니다.
             loader: require.resolve("css-loader"),
             options: {
+              onlyLocals: true
+            }
+          },
+          // Setting for CSS Module
+          {
+            test: cssModuleRegex,
+            loader: require.resolve("css-loader"),
+            options: {
               modules: true,
               onlyLocals: true,
               getLocalIdent: getCSSModuleLocalIdent
