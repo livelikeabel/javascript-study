@@ -13,7 +13,7 @@ const paths = require("../config/paths");
 
 function build() {
   console.log("Creating server build...");
-  fs.emptyDirSync(paths.ssrbuild);
+  fs.emptyDirSync(paths.ssrBuild);
   let compiler = webpack(config);
   return new Promise((resolve, reject) => {
     compiler.run((err, stats) => {
