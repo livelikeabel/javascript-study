@@ -1,25 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import { Component } from "react";
+import { ThemeContext, themes } from "./theme-context";
+import ThemedButton from "./themed-button";
 
-function App() {
+function Toolbar(props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemedButton onClick={props.changeTheme}>
+      Change Theme
+    </ThemedButton>
   );
+}
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      theme: themes.light
+    };
+
+    this.toggleTheme = () => {
+      this.setState(state => ({
+        theme:
+          state.theme === themes.dark
+            ? themes.light
+            : themes.dark,
+      }));
+    };
+  }
+
+  render() {
+    return (
+      <>
+        <ThemeContext.Provider value={this.state.theme}>
+          <Toolbar changeTheme={this.toggleTheme} />
+        </ThemeContext.Provider>
+        <div>
+          <ThemedButton>
+            hello world!
+          </ThemedButton>
+        </div>
+      </>
+    );
+  }
 }
 
 export default App;
